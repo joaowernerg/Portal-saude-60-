@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prevenção de Quedas e Lesões • Vida Saudável 60+</title>
+  <meta name="description" content="Tecnologia Assistiva, reabilitação, ambiente seguro e soluções de baixo custo para reduzir quedas e preservar a autonomia na melhor idade." />
+
+  <!-- Fontes e Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS do projeto -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ===== Extras (A11y + Áudio + fix bugs) ===== -->
+  <style>
+    :root{ font-size:18px; }
+
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    body.easy-read{
+      background:#fff !important; color:#000 !important;
+      font-size:1.18rem; line-height:2;
+      letter-spacing:.2px;
+    }
+
+    /* Barra A11y no header */
+    .a11y-row{ margin-top:.75rem; }
+    .a11y-inner{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding-top:.4rem;
+      border-top:1px solid rgba(0,0,0,.12);
+    }
+    .btn-a11y, .audio-btn{
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 3px 8px rgba(0,0,0,.05);
+    }
+    .btn-a11y:hover, .audio-btn:hover{ transform:translateY(-1px); }
+    .btn-a11y:focus, .audio-btn:focus{ outline:3px solid rgba(255,122,0,.25); outline-offset:2px; }
+    .a11y-sep{ width:1px; height:32px; background:rgba(0,0,0,.12); margin:0 2px; }
+    .font-hint{ font-size:14px; opacity:.75; margin-left:6px; }
+
+    .audio-toolbar{ margin:0 0 12px; }
+
+    /* Botão leitura fácil fixo */
+    #easyReadBtn{
+      position:fixed; left:16px; bottom:16px; z-index:999;
+      border:0; border-radius:999px;
+      background:#ffd633; color:#000;
+      font-weight:800;
+      padding:.65rem 1rem;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+      cursor:pointer;
+    }
+
+    /* Caso seu style.css não tenha grid-2, garantimos aqui */
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:1fr}
+    @media (min-width:900px){ .grid-2{grid-template-columns:repeat(2,1fr)} }
+    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    @media (max-width:768px){
+      .btn-a11y, .audio-btn{ padding:9px 10px; }
+      .a11y-inner{ gap:8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de progresso -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="index.html" aria-label="Página inicial Vida Saudável 60+">
+        <span class="brand-badge" aria-hidden="true">60+</span>
+        <div class="brand-text">
+          <h1>Vida Saudável</h1>
+          <p>Saúde • Dicas • Jogos</p>
+        </div>
+      </a>
+
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="topNav" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="topNav" class="top-nav" aria-label="Navegação principal">
+        <a href="index.html#noticias">Notícias</a>
+        <a href="index.html#jogos">Jogos</a>
+        <a href="index.html#videos">Vídeos</a>
+        <a href="index.html#dicas">Dicas</a>
+      </nav>
+    </div>
+
+    <!-- A11y + Áudio -->
+    <div class="container a11y-row" role="region" aria-label="Acessibilidade e leitura em áudio">
+      <div class="a11y-inner">
+        <button class="btn-a11y" id="fontDec" type="button" aria-label="Diminuir tamanho da letra">A-</button>
+        <button class="btn-a11y" id="fontInc" type="button" aria-label="Aumentar tamanho da letra">A+</button>
+        <button class="btn-a11y" id="fontReset" type="button" aria-label="Voltar tamanho padrão">Padrão</button>
+        <span class="font-hint" id="fontHint" aria-live="polite"></span>
+
+        <span class="a11y-sep" aria-hidden="true"></span>
+
+        <button class="btn-a11y" id="ttsPlayPage" type="button" aria-label="Ouvir a página inteira">🔊 Ouvir página</button>
+        <button class="btn-a11y" id="ttsPause" type="button" aria-label="Pausar ou continuar leitura">⏸ Pausar</button>
+        <button class="btn-a11y" id="ttsStop" type="button" aria-label="Parar leitura">⏹ Parar</button>
+        <small id="ttsStatus" class="sr-only" aria-live="polite"></small>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <small id="dataHoje" class="hero-date" aria-live="polite"></small>
+        <h2>Prevenção de <span>Quedas e Lesões</span></h2>
+        <p>Quedas são um grande problema de saúde pública. <strong>Tecnologia Assistiva</strong> e ações de <strong>reabilitação</strong> ajudam a reduzir riscos e proteger sua autonomia.</p>
+
+        <div class="audio-toolbar">
+          <button class="audio-btn" type="button" data-section="page-all">🔊 Ouvir a página inteira</button>
+        </div>
+
+        <!-- Sumário -->
+        <nav class="toc" aria-label="Sumário desta página">
+          <strong>Sumário</strong>
+          <ul>
+            <li><a href="#prevencao">2. Prevenção de quedas e lesões</a></li>
+            <li><a href="#solucoes">3. Soluções acessíveis e inovadoras</a></li>
+            <li><a href="#impacto">4. Quedas em idosos: impacto na autonomia</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <aside class="alerta" role="note" aria-label="Aviso importante">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <h3>Informação, não diagnóstico</h3>
+          <p>Se houver tontura, quedas recorrentes ou ferimentos, procure avaliação profissional.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <!-- ===== 2. Prevenção de Quedas e Lesões ===== -->
+    <section id="prevencao" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="prevencao">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-shield-heart"></i> 2. Prevenção de Quedas e Lesões</h3>
+      <p>As quedas são um grande problema de saúde pública e podem levar a graves limitações físicas e psicológicas. A <strong>Tecnologia Assistiva (TA)</strong> e as ações de <strong>reabilitação</strong> são estratégias essenciais para prevenir <em>lesões involuntárias</em>.</p>
+      <p>Como as causas das quedas são <strong>multifatoriais</strong>, a reabilitação busca combater esses fatores com intervenções direcionadas:</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4><i class="fa-solid fa-dumbbell"></i> Fortalecimento e equilíbrio</h4>
+          <ul class="list">
+            <li>Atividades de <strong>fortalecimento muscular</strong> (membros inferiores e tronco).</li>
+            <li>Treinos de <strong>equilíbrio estático e dinâmico</strong> e <strong>psicomotricidade</strong>.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-house-chimney"></i> Atenção ao ambiente</h4>
+          <ul class="list">
+            <li>Segurança no <strong>domicílio</strong> e na <strong>comunidade</strong> (escadas, tapetes, vias irregulares).</li>
+            <li>TA aplicada a <strong>adaptações ambientais</strong> (barras de apoio, fitas antiderrapantes, corrimãos).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. Soluções Acessíveis e Inovadoras ===== -->
+    <section id="solucoes" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="solucoes">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i> 3. Soluções Acessíveis e Inovadoras (Tecnologias Assistivas de Baixo Custo)</h3>
+      <p>Apesar de muitos dispositivos terem alto custo, há iniciativas eficazes e <strong>acessíveis</strong>:</p>
+      <ul class="list">
+        <li><strong>Oficinas de Adaptação</strong>: projetos que treinam cuidadores para produzir adaptações com <strong>EVA, PVC e papelão</strong>.</li>
+        <li><strong>Reprodução no domicílio</strong>: após a capacitação, é possível replicar instrumentos e adaptações em casa, aumentando a independência em áreas de baixa renda.</li>
+        <li><strong>Intervenções comunitárias</strong>: instalação de <strong>barras de apoio</strong> em vielas e melhorias simples no entorno.</li>
+      </ul>
+      <p><em>Em resumo</em>, a TA na mobilidade ajuda a <strong>prolongar a independência</strong>, <strong>reduzir riscos</strong> e garantir o exercício da <strong>autonomia</strong> no dia a dia.</p>
+    </section>
+
+    <!-- ===== 4. Impacto ===== -->
+    <section id="impacto" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="impacto">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title">
+        <i class="fa-solid fa-person-walking-with-cane"></i>
+        Quedas em Idosos: Impacto na Autonomia
+      </h2>
+
+      <p>
+        As quedas afetam diretamente a <strong>qualidade de vida</strong>, podendo gerar medo de cair novamente,
+        perda de confiança e isolamento social. A <strong>reabilitação física e emocional</strong> é essencial
+        para a retomada da autonomia e prevenção de novos episódios.
+      </p>
+
+      <div class="grid grid-2" style="margin-top:20px">
+        <article class="card" aria-label="Vídeo 150 minutos por semana">
+          <div class="video-wrap">
+            <iframe title="150 minutos por semana - Animação"
+              src="https://www.youtube.com/embed/e3LzO5ED4z8"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4><i class="fa-solid fa-heart-pulse"></i> 150 min/semana</h4>
+            <p>Praticar atividades físicas regulares fortalece músculos e previne quedas no dia a dia.</p>
+            <a class="back-btn" href="https://youtu.be/e3LzO5ED4z8" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube"></i> Abrir no YouTube
+            </a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Vídeo dicas de prevenção de quedas">
+          <div class="video-wrap">
+            <iframe title="Dicas de Prevenção de Quedas"
+              src="https://www.youtube.com/embed/rACtEpBg3Jk"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4><i class="fa-solid fa-lightbulb"></i> Dicas práticas</h4>
+            <p>Descubra como adaptar sua casa e evitar acidentes com mudanças simples na rotina.</p>
+            <a class="back-btn" href="https://youtu.be/rACtEpBg3Jk" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube"></i> Abrir no YouTube
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="highlight" style="margin-top:14px">
+        <strong>Dica:</strong> converse com seu fisioterapeuta sobre exercícios de equilíbrio e fortalecimento
+        específicos para o seu dia a dia.
+      </div>
+    </section>
+  </main>
+
+  <!-- Voltar ao topo -->
+  <button id="toTop" class="to-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Leitura fácil -->
+  <button id="easyReadBtn" type="button" aria-label="Ativar modo leitura fácil">👁️ Leitura Fácil</button>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anoAtual"></span> Vida Saudável 60+. Conteúdo educativo.</p>
+    </div>
+  </footer>
+
+  <!-- JS do projeto -->
+  <script src="script.js"></script>
+
+  <!-- JS da página (com áudio + A11y) -->
+  <script>
+    (function() {
+      // ===== Data e ano =====
+      const d = new Date();
+      document.getElementById('dataHoje').textContent = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' });
+      document.getElementById('anoAtual').textContent = d.getFullYear();
+
+      // ===== Menu mobile =====
+      const btn = document.getElementById('menuBtn');
+      const nav = document.getElementById('topNav');
+      btn?.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      // ===== Barra progresso + topo =====
+      const bar = document.getElementById('progressBar');
+      const toTop = document.getElementById('toTop');
+      const onScroll = () => {
+        const h = document.documentElement;
+        const s = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+        if (bar) bar.style.width = s + '%';
+        if (toTop) h.scrollTop > 240 ? toTop.classList.add('show') : toTop.classList.remove('show');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // ===== Leitura fácil =====
+      document.getElementById('easyReadBtn')?.addEventListener('click', () => {
+        document.body.classList.toggle('easy-read');
+      });
+
+      // ===== Fonte (A- / A+ / Padrão) =====
+      const MIN_PX = 16, MAX_PX = 26, STEP = 1, DEFAULT_PX = 18;
+      const hint = document.getElementById('fontHint');
+
+      function getFontPx() {
+        const saved = Number(localStorage.getItem("vs60_font_px"));
+        if (saved && saved >= MIN_PX && saved <= MAX_PX) return saved;
+        const css = Number(getComputedStyle(document.documentElement).fontSize.replace("px",""));
+        return css || DEFAULT_PX;
+      }
+      function setFontPx(px) {
+        const v = Math.max(MIN_PX, Math.min(MAX_PX, px));
+        document.documentElement.style.fontSize = v + "px";
+        localStorage.setItem("vs60_font_px", String(v));
+        if (hint) hint.textContent = `Tamanho: ${v}px`;
+      }
+      setFontPx(getFontPx());
+      document.getElementById("fontDec")?.addEventListener("click", () => setFontPx(getFontPx() - STEP));
+      document.getElementById("fontInc")?.addEventListener("click", () => setFontPx(getFontPx() + STEP));
+      document.getElementById("fontReset")?.addEventListener("click", () => setFontPx(DEFAULT_PX));
+
+      // ===== Leitura em voz alta (TTS) =====
+      const hasTTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+      const statusEl = document.getElementById("ttsStatus");
+      const setStatus = (msg) => { if (statusEl) statusEl.textContent = msg; };
+
+      function pickPtVoice() {
+        const voices = speechSynthesis.getVoices?.() || [];
+        return voices.find(v => /pt-BR/i.test(v.lang)) || voices.find(v => /^pt/i.test(v.lang)) || null;
+      }
+
+      function stopSpeak() {
+        if (!hasTTS) return;
+        speechSynthesis.cancel();
+        setStatus("Leitura parada.");
+      }
+
+      function pauseOrResume() {
+        if (!hasTTS) return;
+        if (speechSynthesis.speaking && !speechSynthesis.paused) {
+          speechSynthesis.pause();
+          setStatus("Leitura pausada.");
+          return;
+        }
+        if (speechSynthesis.paused) {
+          speechSynthesis.resume();
+          setStatus("Leitura retomada.");
+        }
+      }
+
+      function speakText(text) {
+        if (!hasTTS) {
+          alert("Seu navegador não suporta leitura em voz. Use o Google Chrome 😉");
+          return;
+        }
+        const clean = (text || "").replace(/\s+/g, " ").trim();
+        if (!clean) return;
+
+        stopSpeak();
+
+        const u = new SpeechSynthesisUtterance(clean);
+        const voice = pickPtVoice();
+        if (voice) u.voice = voice;
+
+        u.lang = voice?.lang || "pt-BR";
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        u.volume = 1.0;
+
+        u.onstart = () => setStatus("Lendo em voz alta...");
+        u.onend   = () => setStatus("Leitura concluída.");
+        u.onerror = () => setStatus("Não foi possível ler este trecho.");
+
+        speechSynthesis.speak(u);
+      }
+
+      function extractCleanText(root) {
+        if (!root) return "";
+        const clone = root.cloneNode(true);
+
+        // mantém texto dos links
+        clone.querySelectorAll("a").forEach(a => {
+          const t = document.createTextNode(a.textContent || "");
+          a.replaceWith(t);
+        });
+
+        // remove controles e coisas sem interesse na leitura
+        const removeSelectors = [
+          ".audio-toolbar",
+          ".a11y-row",
+          "#progressBar",
+          "nav",
+          "button",
+          "script",
+          "style",
+          "i",
+          "#toTop",
+          "#easyReadBtn",
+          "iframe"
+        ];
+        clone.querySelectorAll(removeSelectors.join(",")).forEach(el => el.remove());
+
+        return (clone.textContent || "")
+          .replace(/[ \t]+\n/g, "\n")
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/[ \t]{2,}/g, " ")
+          .trim();
+      }
+
+      // Globais
+      document.getElementById("ttsPlayPage")?.addEventListener("click", () => {
+        const main = document.querySelector("main");
+        speakText(extractCleanText(main));
+      });
+      document.getElementById("ttsPause")?.addEventListener("click", pauseOrResume);
+      document.getElementById("ttsStop")?.addEventListener("click", stopSpeak);
+
+      // Por tópico + page-all
+      document.querySelectorAll(".audio-btn").forEach(b => {
+        b.addEventListener("click", () => {
+          const target = b.getAttribute("data-section");
+          if (target === "page-all") { document.getElementById("ttsPlayPage")?.click(); return; }
+          const sec = document.getElementById(target);
+          speakText(extractCleanText(sec));
+        });
+      });
+
+      // Atalhos: Alt+L (página), Alt+P (pausar), Alt+X (parar)
+      document.addEventListener("keydown", (e) => {
+        if (!e.altKey) return;
+        const k = e.key.toLowerCase();
+        if (k === "l") { e.preventDefault(); document.getElementById("ttsPlayPage")?.click(); }
+        if (k === "p") { e.preventDefault(); pauseOrResume(); }
+        if (k === "x") { e.preventDefault(); stopSpeak(); }
+      });
+
+      if (hasTTS && speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {};
+      }
+      window.addEventListener("beforeunload", stopSpeak);
+    })();
+  </script>
+</body>
+</html>

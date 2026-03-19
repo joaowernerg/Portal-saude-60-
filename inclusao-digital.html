@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Como a tecnologia, a inclusão digital e a cidadania fortalecem a autonomia, a participação social e a qualidade de vida das pessoas idosas." />
+  <meta name="author" content="Projeto Vida Saudável 60+" />
+  <title>Inclusão Digital no Envelhecimento Ativo • Vida Saudável 60+</title>
+
+  <!-- Fontes e Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fffaf3; --text:#232323; --muted:#444;
+      --brand:#ff7a00; --brand-2:#ffd633;
+      --card:#fff; --border:#efe3cf; --shadow:0 6px 16px rgba(0,0,0,.08);
+      --radius:16px; --container:1100px;
+      font-size:18px; /* fonte base (A+/A- vai alterar aqui) */
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.85; font-size:1.06rem;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    body.easy-read{background:#fff;color:#000;font-size:1.2rem;line-height:2;letter-spacing:.2px}
+    a{text-decoration:none;color:var(--brand)} a:hover{color:#b85d00}
+    .container{width:min(var(--container),92%);margin:auto}
+    .section{padding:clamp(28px,5vw,64px) 0}
+    .section-title{font:700 clamp(22px,3vw,30px) 'Merriweather',serif;display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#222}
+    .muted{color:var(--muted)}
+    .lead{font-size:1.1rem;color:#333}
+
+    /* HERO */
+    .hero{
+      background:
+        radial-gradient(1200px 420px at 10% -10%, #fff1dc 0%, rgba(255,255,255,0) 60%),
+        radial-gradient(1200px 420px at 90% -10%, #ffeaa6 0%, rgba(255,255,255,0) 60%);
+      padding:78px 0 36px;text-align:center;border-bottom:2px solid var(--border);
+    }
+    .hero h1{font:700 clamp(26px,4vw,40px) 'Merriweather',serif;color:#222}
+    .hero p{max-width:820px;margin:12px auto 18px;font-size:18px;color:#333}
+    .pill{
+      display:inline-flex;gap:8px;align-items:center;
+      background:#fff;border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:14px;color:#444;
+      box-shadow:var(--shadow)
+    }
+    .back-btn{
+      display:inline-block;margin-top:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#222;padding:10px 20px;border-radius:12px;font-weight:600;box-shadow:var(--shadow);transition:.3s;
+    }
+    .back-btn:hover{transform:translateY(-2px);background:linear-gradient(135deg,#ff9517,#ffec64)}
+
+    /* SUMÁRIO */
+    .toc{margin-top:16px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--shadow);text-align:left}
+    .toc strong{display:block;margin-bottom:8px;color:#222}
+    .toc ul{display:grid;gap:8px;list-style:none}
+    .toc a{display:inline-flex;gap:8px;align-items:center;color:var(--brand)}
+
+    .highlight{background:#fff9e6;border-left:6px solid var(--brand);padding:14px 18px;border-radius:12px;margin:14px 0}
+    .list{margin:10px 0 12px 22px}
+    .list li{margin-bottom:8px}
+
+    /* VÍDEO */
+    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);margin-top:12px;background:#000}
+    iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* ALERTA / FOOTER / TO-TOP / PROGRESS */
+    .alerta{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--shadow);margin-top:20px}
+    .alerta i{font-size:22px;color:var(--brand)}
+    .site-footer{background:#fff;margin-top:40px;padding:24px 0;text-align:center;border-top:1px solid var(--border);color:#666;font-size:15px}
+    #progressBar{position:fixed;top:0;left:0;height:5px;background:var(--brand);width:0%;z-index:999}
+    .to-top{position:fixed;right:16px;bottom:16px;z-index:50;width:44px;height:44px;display:none;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);cursor:pointer}
+    .to-top.show{display:flex}
+    #easyReadBtn{
+      position:fixed;left:16px;bottom:16px;z-index:50;padding:.6rem 1rem;border:0;border-radius:999px;background:var(--brand-2);color:#000;font-weight:700;box-shadow:var(--shadow);cursor:pointer
+    }
+
+    /* Barra de acessibilidade + áudio */
+    .a11y-bar{
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .a11y-inner{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding:10px 0;
+    }
+    .btn-a11y, .audio-btn{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow: var(--shadow);
+    }
+    .btn-a11y:focus, .audio-btn:focus{ outline:3px solid rgba(255,122,0,.25); outline-offset:2px; }
+    .a11y-sep{ width:1px; height:32px; background:var(--border); margin:0 2px; }
+    .font-hint{ font-size:14px; opacity:.75; margin-left:6px; }
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* Animação */
+    [data-animate]{opacity:0;transform:translateY(30px);transition:all .6s ease-out}
+    [data-animate].visible{opacity:1;transform:none}
+
+    .audio-toolbar{ margin: 10px 0 14px; }
+  </style>
+</head>
+
+<body>
+  <!-- Barra de Progresso -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- Barra A11y + Áudio -->
+  <div class="a11y-bar" role="region" aria-label="Acessibilidade: tamanho da letra e leitura em áudio">
+    <div class="container a11y-inner">
+      <button class="btn-a11y" id="fontDec" type="button" aria-label="Diminuir tamanho da letra">A-</button>
+      <button class="btn-a11y" id="fontInc" type="button" aria-label="Aumentar tamanho da letra">A+</button>
+      <button class="btn-a11y" id="fontReset" type="button" aria-label="Voltar tamanho padrão">Padrão</button>
+      <span class="font-hint" id="fontHint" aria-live="polite"></span>
+
+      <span class="a11y-sep" aria-hidden="true"></span>
+
+      <button class="btn-a11y" id="ttsPlayPage" type="button" aria-label="Ouvir a página inteira">🔊 Ouvir página</button>
+      <button class="btn-a11y" id="ttsPause" type="button" aria-label="Pausar ou continuar leitura">⏸ Pausar</button>
+      <button class="btn-a11y" id="ttsStop" type="button" aria-label="Parar leitura">⏹ Parar</button>
+
+      <small id="ttsStatus" class="sr-only" aria-live="polite"></small>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="pill"><i class="fa-solid fa-wifi"></i> Inclusão Digital • Autonomia • Cidadania</span>
+      <h1>Inclusão Digital no Envelhecimento Ativo</h1>
+      <p class="lead">Como a tecnologia, os direitos digitais e a cidadania transformam o envelhecer em uma jornada de <strong>autonomia</strong>, <strong>participação</strong> e <strong>qualidade de vida</strong>.</p>
+      <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Voltar para a página inicial</a>
+
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="page-all">🔊 Ouvir a página inteira</button>
+      </div>
+
+      <!-- SUMÁRIO -->
+      <nav class="toc" aria-label="Sumário">
+        <strong>Sumário</strong>
+        <ul>
+          <li><a href="#intro"><i class="fa-solid fa-paragraph"></i> Introdução</a></li>
+          <li><a href="#envelhecimento-ativo"><i class="fa-solid fa-seedling"></i> O que é Envelhecimento Ativo</a></li>
+          <li><a href="#inclusao-saude"><i class="fa-solid fa-notes-medical"></i> Inclusão digital na saúde</a></li>
+          <li><a href="#videos"><i class="fa-solid fa-video"></i> Vídeos</a></li>
+          <li><a href="#ta-mobilidade"><i class="fa-solid fa-person-cane"></i> Tecnologias assistivas na marcha e locomoção</a></li>
+          <li><a href="#estatuto"><i class="fa-solid fa-scale-balanced"></i> Estatuto e promoção da autonomia</a></li>
+          <li><a href="#cidadania"><i class="fa-solid fa-users"></i> Participação social e cidadania</a></li>
+          <li><a href="#autonomia-pilar"><i class="fa-solid fa-user-shield"></i> Autonomia: pilar ético e legal</a></li>
+          <li><a href="#curatela"><i class="fa-solid fa-gavel"></i> Curatela (tutela legal)</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- INTRODUÇÃO -->
+    <section id="intro" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="intro">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-paragraph"></i> Inclusão digital no envelhecimento ativo</h2>
+      <p>O aumento da expectativa de vida e o desejo por longevidade com qualidade de vida é um ideal para todos. O Envelhecimento Ativo é o processo de otimizar oportunidades para saúde, participação e segurança, a fim de realçar a qualidade de vida.</p>
+      <p>A tecnologia e a inclusão digital são ferramentas poderosas que ajudam você a viver essa fase com mais autonomia e bem-estar.</p>
+    </section>
+
+    <!-- O QUE É ENVELHECIMENTO ATIVO -->
+    <section id="envelhecimento-ativo" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="envelhecimento-ativo">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-seedling"></i> O que é Envelhecimento Ativo?</h2>
+      <p>Envelhecer ativamente não se restringe a ser fisicamente ativo ou estar na força de trabalho. Significa continuar o engajamento continuado na vida.</p>
+      <p>Para os idosos, um envelhecimento ativo envolve determinantes de caráter comportamental, social, econômico e pessoal. Envelhecer ativamente implica:</p>
+      <ul class="list">
+        <li><strong>Participação Social:</strong> Dialogar, conversar, ter amizade e convívio social.</li>
+        <li><strong>Saúde Física e Mental:</strong> Praticar atividades físicas e ter alimentação saudável.</li>
+        <li><strong>Mente Ativa:</strong> Ocupar o tempo livre com atividades prazerosas e exercitar a memória.</li>
+        <li><strong>Autonomia:</strong> Manter independência funcional para realizar atividades diárias.</li>
+      </ul>
+    </section>
+
+    <!-- INCLUSÃO DIGITAL NA SAÚDE -->
+    <section id="inclusao-saude" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="inclusao-saude">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-notes-medical"></i> A inclusão digital na sua saúde</h2>
+      <p>Em um mundo altamente digital, o acesso à informação é um princípio ético importante. As tecnologias facilitam que você:</p>
+      <ol class="list">
+        <li><strong>Acompanhe sua Saúde:</strong> ampliar recursos para compreender e atuar nas questões de saúde.</li>
+        <li><strong>Tenha sua Saúde Registrada:</strong> usar plataformas digitais para registrar e acompanhar informações.</li>
+      </ol>
+    </section>
+
+    <!-- VÍDEOS -->
+    <section id="videos" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="videos">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-video"></i> Vídeos explicativos</h2>
+
+      <div class="video-wrap" role="group" aria-label="Vídeo 1">
+        <iframe
+          src="https://www.youtube.com/embed/jjG1j-Wn6ZE"
+          title="Vídeo 1 - Inclusão Digital no Envelhecimento Ativo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <p class="muted" style="margin:8px 0 24px;">Primeiro vídeo educativo sobre inclusão digital e envelhecimento ativo.</p>
+
+      <div class="video-wrap" role="group" aria-label="Vídeo 2">
+        <iframe
+          src="https://www.youtube.com/embed/Bz9CJr90Oo8"
+          title="Vídeo 2 - Inclusão Digital e Autonomia"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <p class="muted">Segundo vídeo complementar sobre tecnologia e cidadania digital na terceira idade.</p>
+    </section>
+
+    <!-- TECNOLOGIAS ASSISTIVAS -->
+    <section id="ta-mobilidade" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="ta-mobilidade">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-person-cane"></i> Uso de tecnologias assistivas na marcha e locomoção</h2>
+      <p>A capacidade funcional para manter a habilidade para realizar atividades básicas e instrumentais da vida diária é crucial para a manutenção de uma vida independente e autônoma. A capacidade de locomoção é uma das dimensões da capacidade funcional e é essencial para o envelhecimento ativo.</p>
+
+      <h3 style="margin-top:10px">Locomoção e o Risco de Quedas</h3>
+      <p>Há um grande problema de saúde pública no Brasil.</p>
+      <ul class="list">
+        <li>Mais de um terço das pessoas idosas sofrem pelo menos uma queda por ano.</li>
+        <li>As quedas podem levar a ferimentos, incapacidade e o medo de cair.</li>
+        <li>As causas das quedas são multifatoriais e incluem alterações no padrão da marcha.</li>
+      </ul>
+
+      <h3 style="margin-top:10px">Como a Tecnologia Assistiva ajuda na Mobilidade?</h3>
+      <p>A capacidade de se locomover com segurança e de realizar as tarefas diárias é o pilar da sua autonomia e independência funcional.</p>
+
+      <h4 style="margin-top:8px">1. Manutenção da Capacidade Funcional</h4>
+      <ul class="list">
+        <li><strong>Recuperação e Manutenção da Autonomia:</strong> recuperar ou manter a máxima autonomia e independência funcional.</li>
+        <li><strong>Permanência no Lar:</strong> adaptações e ambiente propício viabilizados pela TA.</li>
+        <li><strong>Melhoria do Desempenho:</strong> identificar barreiras, buscar facilitadores e monitorar progresso.</li>
+      </ul>
+
+      <h4 style="margin-top:8px">2. Prevenção de Quedas e Lesões</h4>
+      <ul class="list">
+        <li><strong>Fortalecimento e Equilíbrio:</strong> reduzir riscos com exercícios e treino funcional.</li>
+        <li><strong>Atenção ao Ambiente:</strong> adaptações em casa e na comunidade.</li>
+      </ul>
+
+      <h4 style="margin-top:8px">3. Soluções Acessíveis e Inovadoras</h4>
+      <ul class="list">
+        <li><strong>Oficinas de Adaptação:</strong> adaptações com baixo custo.</li>
+        <li><strong>Reprodução no Domicílio:</strong> replicar instrumentos e adaptações em casa.</li>
+        <li><strong>Intervenções Comunitárias:</strong> melhorias simples no ambiente.</li>
+      </ul>
+
+      <p class="highlight"><strong>Em resumo:</strong> a TA na mobilidade prolonga a independência, reduz o risco de acidentes e assegura autonomia no dia a dia.</p>
+    </section>
+
+    <!-- ESTATUTO DA PESSOA IDOSA -->
+    <section id="estatuto" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="estatuto">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-scale-balanced"></i> Estatuto da Pessoa Idosa e promoção da autonomia</h2>
+
+      <h3>1. Estatuto da Pessoa Idosa</h3>
+      <p>O Estatuto da Pessoa Idosa (Lei nº 10.741/2003, alterada pela Lei nº 14.423/2022) assegura ao cidadão com 60+ a efetivação de direitos fundamentais, como saúde, dignidade, liberdade e respeito.</p>
+      <p>Nenhuma pessoa idosa pode sofrer negligência, discriminação, violência, crueldade ou opressão, e violações são punidas na forma da lei.</p>
+
+      <h3 style="margin-top:10px">2. Direitos Fundamentais Assegurados</h3>
+      <p><strong>a. Saúde e Bem-Estar</strong></p>
+      <!-- Você pode expandir aqui depois -->
+    </section>
+
+    <!-- PARTICIPAÇÃO SOCIAL E CIDADANIA -->
+    <section id="cidadania" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="cidadania">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-users"></i> Participação social e cidadania no envelhecimento ativo</h2>
+
+      <h3>a. Protagonismo e Participação Social</h3>
+      <h4 style="margin-top:6px">Cidadania e Autonomia como Fundamentos Legais</h4>
+      <p><strong>Autodeterminação e Dignidade:</strong> A autonomia é o direito à autodeterminação, mantendo dignidade e liberdade de escolha.</p>
+      <p><strong>Combate ao Paternalismo:</strong> Tratamento infantilizado ou excesso de tutela pode reduzir autonomia e autoestima.</p>
+      <p><strong>Protagonismo:</strong> O idoso deve ser reconhecido como ator social e cidadão capaz de participar de decisões e políticas.</p>
+
+      <h4 style="margin-top:8px">Participação Social</h4>
+      <p>Participar de decisões da própria vida e conviver com a sociedade é essencial para saúde emocional e física.</p>
+
+      <h4 style="margin-top:8px">Estratégias de Inclusão e o Combate ao Estigma</h4>
+      <ul class="list">
+        <li><strong>Lazer e Inclusão Social:</strong> convívio, cultura e atividades recreativas.</li>
+        <li><strong>Valorização da História e Autoestima:</strong> restaurar papéis e sentido.</li>
+        <li><strong>Intergeracionalidade:</strong> convivência entre gerações reduz preconceito.</li>
+        <li><strong>Empoderamento pelo Conhecimento:</strong> alfabetização e letramento digital/midiático.</li>
+      </ul>
+    </section>
+
+    <!-- AUTONOMIA: PILAR ÉTICO E LEGAL -->
+    <section id="autonomia-pilar" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="autonomia-pilar">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-user-shield"></i> A autonomia como pilar ético e legal</h2>
+      <p>A autonomia representa o direito do idoso à autodeterminação, dignidade e liberdade de escolha, sendo objetivo central das políticas públicas.</p>
+      <p>A principal ameaça é o paternalismo e a superproteção, que podem subtrair o poder de decisão e aumentar dependência.</p>
+    </section>
+
+    <!-- CURATELA -->
+    <section id="curatela" class="section" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="curatela">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-gavel"></i> Curatela (tutela legal)</h2>
+      <p>A curatela é um processo judicial aplicado somente quando um idoso é considerado incapaz de gerir sua vida e bens. A justiça nomeia um curador para decisões, visando proteção.</p>
+      <p>É uma medida séria que restringe direitos civis e prevê punições para abuso de poder.</p>
+    </section>
+
+    <!-- AVISO -->
+    <div class="alerta" data-animate>
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <p><strong>Aviso:</strong> Conteúdo educativo e informativo. Para avaliação médica, fisioterapêutica, jurídica ou social individual, procure profissionais qualificados.</p>
+    </div>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="site-footer">
+    <p>&copy; <span id="anoAtual"></span> Vida Saudável 60+. Conteúdo educativo.</p>
+  </footer>
+
+  <!-- VOLTAR AO TOPO + LEITURA FÁCIL -->
+  <button id="toTop" class="to-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
+  <button id="easyReadBtn" aria-label="Ativar modo leitura fácil">👁️ Leitura Fácil</button>
+
+  <script>
+    // Ano corrente
+    document.getElementById('anoAtual').textContent = new Date().getFullYear();
+
+    // Barra de progresso + botão voltar ao topo
+    const bar = document.getElementById('progressBar');
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const s = (h.scrollTop)/(h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = s + '%';
+      toTop.classList.toggle('show', h.scrollTop > 300);
+    }, { passive: true });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior:'smooth' }));
+
+    // Animação de entrada
+    const ob = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.2});
+    document.querySelectorAll('[data-animate]').forEach(el=>ob.observe(el));
+
+    // Leitura Fácil
+    document.getElementById('easyReadBtn').addEventListener('click', () => {
+      document.body.classList.toggle('easy-read');
+    });
+
+    // ===== Fonte (A- / A+ / Padrão) =====
+    const MIN_PX = 16, MAX_PX = 26, STEP = 1, DEFAULT_PX = 18;
+    const hint = document.getElementById('fontHint');
+
+    function getFontPx() {
+      const saved = Number(localStorage.getItem("vs60_font_px"));
+      if (saved && saved >= MIN_PX && saved <= MAX_PX) return saved;
+      const css = Number(getComputedStyle(document.documentElement).fontSize.replace("px",""));
+      return css || DEFAULT_PX;
+    }
+    function setFontPx(px) {
+      const v = Math.max(MIN_PX, Math.min(MAX_PX, px));
+      document.documentElement.style.fontSize = v + "px";
+      localStorage.setItem("vs60_font_px", String(v));
+      if (hint) hint.textContent = `Tamanho: ${v}px`;
+    }
+    setFontPx(getFontPx());
+    document.getElementById("fontDec")?.addEventListener("click", () => setFontPx(getFontPx() - STEP));
+    document.getElementById("fontInc")?.addEventListener("click", () => setFontPx(getFontPx() + STEP));
+    document.getElementById("fontReset")?.addEventListener("click", () => setFontPx(DEFAULT_PX));
+
+    // ===== Leitura por voz (áudio descrição por tópico) =====
+    const hasTTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+    const statusEl = document.getElementById("ttsStatus");
+    const setStatus = (msg) => { if (statusEl) statusEl.textContent = msg; };
+
+    function pickPtVoice() {
+      const voices = speechSynthesis.getVoices?.() || [];
+      return voices.find(v => /pt-BR/i.test(v.lang)) || voices.find(v => /^pt/i.test(v.lang)) || null;
+    }
+
+    function stopSpeak() {
+      if (!hasTTS) return;
+      speechSynthesis.cancel();
+      setStatus("Leitura parada.");
+    }
+
+    function pauseOrResume() {
+      if (!hasTTS) return;
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        speechSynthesis.pause();
+        setStatus("Leitura pausada.");
+        return;
+      }
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+        setStatus("Leitura retomada.");
+      }
+    }
+
+    function speakText(text) {
+      if (!hasTTS) { alert("Seu navegador não suporta leitura em voz. Use o Google Chrome 😉"); return; }
+      const clean = (text || "").replace(/\s+/g, " ").trim();
+      if (!clean) return;
+
+      stopSpeak();
+
+      const u = new SpeechSynthesisUtterance(clean);
+      const voice = pickPtVoice();
+      if (voice) u.voice = voice;
+
+      u.lang = voice?.lang || "pt-BR";
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      u.volume = 1.0;
+
+      u.onstart = () => setStatus("Lendo em voz alta...");
+      u.onend = () => setStatus("Leitura concluída.");
+      u.onerror = () => setStatus("Não foi possível ler este trecho.");
+
+      speechSynthesis.speak(u);
+    }
+
+    function extractCleanText(root) {
+      if (!root) return "";
+      const clone = root.cloneNode(true);
+
+      const removeSelectors = [
+        ".a11y-bar",
+        ".audio-toolbar",
+        "#progressBar",
+        "nav", "button", "a",
+        "iframe", ".video-wrap",
+        "script", "style",
+        "i",
+        "footer",
+        "#toTop",
+        "#easyReadBtn"
+      ];
+      clone.querySelectorAll(removeSelectors.join(",")).forEach(el => el.remove());
+
+      return (clone.textContent || "")
+        .replace(/[ \t]+\n/g, "\n")
+        .replace(/\n{3,}/g, "\n\n")
+        .replace(/[ \t]{2,}/g, " ")
+        .trim();
+    }
+
+    // Botões globais
+    document.getElementById("ttsPlayPage")?.addEventListener("click", () => {
+      const main = document.querySelector("main");
+      speakText(extractCleanText(main));
+    });
+    document.getElementById("ttsPause")?.addEventListener("click", pauseOrResume);
+    document.getElementById("ttsStop")?.addEventListener("click", stopSpeak);
+
+    // Botões por tópico
+    document.querySelectorAll(".audio-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+        if (target === "page-all") {
+          const main = document.querySelector("main");
+          speakText(extractCleanText(main));
+          return;
+        }
+        const sec = document.getElementById(target);
+        speakText(extractCleanText(sec));
+      });
+    });
+
+    // Atalhos: Alt+L (página), Alt+P (pausar), Alt+X (parar)
+    document.addEventListener("keydown", (e) => {
+      if (!e.altKey) return;
+      const k = e.key.toLowerCase();
+      if (k === "l") { e.preventDefault(); document.getElementById("ttsPlayPage")?.click(); }
+      if (k === "p") { e.preventDefault(); pauseOrResume(); }
+      if (k === "x") { e.preventDefault(); stopSpeak(); }
+    });
+
+    if (hasTTS && speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = () => {};
+    }
+    window.addEventListener("beforeunload", stopSpeak);
+  </script>
+</body>
+</html>

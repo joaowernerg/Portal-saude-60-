@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cuidando do Coração na Melhor Idade • Vida Saudável 60+</title>
+  <meta name="description" content="Dicas práticas e seguras para cuidar do coração após os 60 anos: riscos, pressão, equipe multidisciplinar, reabilitação cardíaca, sinais de alerta e vídeos." />
+
+  <!-- Fontes e ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS base do projeto -->
+  <link rel="stylesheet" href="style1.css" />
+
+  <!-- Acessibilidade + áudio (somente complementos) -->
+  <style>
+    :root { font-size: 18px; }
+    body { line-height: 1.75; }
+
+    /* Barra A11y */
+    .a11y-bar{
+      position: sticky; top: 0; z-index: 80;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border, #e6e6e6);
+    }
+    .a11y-inner{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding:10px 0;
+    }
+    .btn-a11y{
+      border:1px solid var(--border, #e6e6e6);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow: var(--shadow, 0 10px 22px rgba(0,0,0,.08));
+    }
+    .btn-a11y:focus{ outline:3px solid rgba(12,107,95,.25); outline-offset:2px; }
+    .a11y-sep{ width:1px; height:32px; background:var(--border, #e6e6e6); margin:0 2px; }
+    .font-hint{ font-size:14px; opacity:.75; margin-left:6px; }
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* Botão de áudio por tópico */
+    .audio-toolbar{ margin: 10px 0 14px; }
+    .audio-btn{
+      border:1px solid var(--border, #e6e6e6);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow: var(--shadow, 0 10px 22px rgba(0,0,0,.08));
+    }
+    .audio-btn:focus{ outline:3px solid rgba(12,107,95,.25); outline-offset:2px; }
+
+    /* Se o seu CSS base não tiver .video-wrap, garante responsivo */
+    .video-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%;
+      border-radius:16px;
+      overflow:hidden;
+      background:#000;
+    }
+    .video-wrap iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      border:0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Barra de progresso -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- Cabeçalho -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <a class="brand" href="index.html#noticias" aria-label="Página inicial Vida Saudável 60+">
+        <span class="brand-badge" aria-hidden="true">60+</span>
+        <div class="brand-text">
+          <h1>Vida Saudável</h1>
+          <p>Saúde • Movimento • Longevidade</p>
+        </div>
+      </a>
+
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="topNav" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <nav id="topNav" class="top-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#riscos">Riscos & contexto</a>
+        <a href="#pressao">Pressão & colesterol</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#dicas">Dicas diárias</a>
+        <a href="#rc">Reabilitação</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#referencias">Referências</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Barra de acessibilidade + áudio -->
+  <div class="a11y-bar" role="region" aria-label="Acessibilidade: tamanho da letra e leitura em áudio">
+    <div class="container a11y-inner">
+      <button class="btn-a11y" id="fontDec" type="button" aria-label="Diminuir tamanho da letra">A-</button>
+      <button class="btn-a11y" id="fontInc" type="button" aria-label="Aumentar tamanho da letra">A+</button>
+      <button class="btn-a11y" id="fontReset" type="button" aria-label="Voltar tamanho padrão">Padrão</button>
+      <span class="font-hint" id="fontHint" aria-live="polite"></span>
+
+      <span class="a11y-sep" aria-hidden="true"></span>
+
+      <button class="btn-a11y" id="ttsPlayPage" type="button" aria-label="Ouvir a página inteira">🔊 Ouvir página</button>
+      <button class="btn-a11y" id="ttsPause" type="button" aria-label="Pausar ou continuar leitura">⏸ Pausar</button>
+      <button class="btn-a11y" id="ttsStop" type="button" aria-label="Parar leitura">⏹ Parar</button>
+
+      <small id="ttsStatus" class="sr-only" aria-live="polite"></small>
+    </div>
+  </div>
+
+  <!-- Botão voltar -->
+  <section class="section container" style="padding-top:20px; padding-bottom:0;">
+    <a class="btn btn-light" href="index.html#noticias">← Voltar para a página inicial</a>
+  </section>
+
+  <!-- Hero -->
+  <section id="inicio" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <small id="dataHoje" class="hero-date" aria-live="polite"></small>
+        <h2>Cuidando do <span>Coração</span> na Melhor Idade</h2>
+        <p>A saúde do coração é essencial na terceira idade. Com informação e atitudes simples, é possível prevenir complicações e viver mais e melhor.</p>
+
+        <div class="audio-toolbar">
+          <button class="audio-btn" type="button" data-section="page-all">🔊 Ouvir a página inteira</button>
+        </div>
+
+        <nav class="toc" aria-label="Sumário desta página">
+          <strong>Sumário</strong>
+          <ul>
+            <li><a href="#riscos">Por que o risco aumenta</a></li>
+            <li><a href="#pressao">Controle da pressão e do colesterol</a></li>
+            <li><a href="#equipe">Equipe multidisciplinar</a></li>
+            <li><a href="#dicas">Dicas simples e seguras</a></li>
+            <li><a href="#rc">Reabilitação cardíaca</a></li>
+            <li><a href="#videos">Vídeos</a></li>
+            <li><a href="#referencias">Referências</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <aside class="alerta">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <h3>Atenção</h3>
+          <p>Conteúdo educativo — não substitui avaliação individual. Em dor no peito, falta de ar importante, tontura forte ou inchaço nas pernas, <strong>procure atendimento</strong>.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <!-- Riscos & Contexto -->
+    <section id="riscos" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="riscos">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Riscos e contexto após os 60</h3>
+      <p>Após os 60 anos, o risco de doenças cardiovasculares aumenta progressivamente, podendo <strong>dobrar a cada década</strong>. Entre os fatores principais estão <strong>sedentarismo</strong>, <strong>pressão alta</strong>, <strong>fragilidade física</strong>, <strong>estresse psicossocial</strong> e <strong>baixa adesão a medicamentos</strong>.</p>
+
+      <div class="kpis">
+        <div class="kpi">
+          <h4>Sedentarismo & baixa capacidade cardiorrespiratória</h4>
+          <p>maiores causas de mortalidade CV</p>
+        </div>
+        <div class="kpi">
+          <h4>Hipertensão arterial</h4>
+          <p>eleva fortemente o risco a cada ↑ de 20 mmHg (PAS)</p>
+        </div>
+        <div class="kpi">
+          <h4>Fragilidade & estresse</h4>
+          <p>presentes em até ~40% dos idosos</p>
+        </div>
+      </div>
+
+      <p class="badge">Para iniciantes: comece <strong>gradual</strong>, com atividades leves e seguras, respeitando seus limites.</p>
+    </section>
+
+    <!-- Pressão & Colesterol -->
+    <section id="pressao" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="pressao">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> Controle da pressão e do colesterol</h3>
+      <p>Manter a pressão arterial e o colesterol sob controle reduz de forma expressiva o risco de <strong>infarto</strong> e <strong>AVC</strong>.</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4>Metas individualizadas</h4>
+          <p>O alvo de pressão deve considerar <strong>fragilidade</strong> e <strong>função cognitiva</strong>. Metas mais intensivas podem ser consideradas sob supervisão médica.</p>
+        </div>
+        <div class="callout info">
+          <h4>Segurança em primeiro lugar</h4>
+          <p>Idosos frágeis ou com comprometimento cognitivo têm maior risco de efeitos adversos. <strong>Equilíbrio entre benefício e segurança</strong> é essencial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Equipe Multidisciplinar -->
+    <section id="equipe" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="equipe">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-users-medical" aria-hidden="true"></i> Equipe multidisciplinar: quem faz o quê</h3>
+      <div class="table-wrap" role="region" aria-label="Papéis da equipe">
+        <table class="clean">
+          <thead>
+            <tr>
+              <th style="width:28%">Profissional</th>
+              <th>Função e foco</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cardiologista / Médico</strong></td>
+              <td>Supervisiona o cuidado, ajusta tratamento (pressão, colesterol), e lida com diagnóstico e complicações.</td>
+            </tr>
+            <tr>
+              <td><strong>Fisiologista do Exercício / Fisioterapeuta</strong></td>
+              <td>Prescrição e supervisão de exercícios (aeróbico, força, flexibilidade/equilíbrio), com foco em segurança.</td>
+            </tr>
+            <tr>
+              <td><strong>Nutricionista / Dietista</strong></td>
+              <td>Educação alimentar: reduzir sal e gordura saturada, aumentar fibras e adequar a dieta ao objetivo.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Dicas e Sinais de Alerta -->
+    <section id="dicas" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="dicas">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Dicas simples e seguras</h3>
+
+      <div class="tips" style="margin-bottom:10px">
+        <div class="tip"><i class="fa-solid fa-person-walking" aria-hidden="true"></i><div>Levante-se e caminhe a cada hora para evitar longos períodos sentado.</div></div>
+        <div class="tip"><i class="fa-solid fa-shoe-prints" aria-hidden="true"></i><div>Aumente gradualmente sua contagem de passos (mesmo devagar já ajuda).</div></div>
+        <div class="tip"><i class="fa-solid fa-dumbbell" aria-hidden="true"></i><div>Força e equilíbrio: sentar e levantar da cadeira, com segurança.</div></div>
+        <div class="tip"><i class="fa-solid fa-person-walking-arrow-right" aria-hidden="true"></i><div>Caminhar com regularidade é simples, seguro e muito eficaz.</div></div>
+      </div>
+
+      <h4 class="section-title" style="font-size:18px"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Sinais de alerta (procure atendimento)</h4>
+      <ul class="alert-list">
+        <li>Dor no peito em repouso ou mais intensa que o habitual.</li>
+        <li>Falta de ar importante ou inchaço nas pernas.</li>
+        <li>Pressão muito alta (≥ 180/100 mmHg).</li>
+        <li>Batimentos muito irregulares com mal-estar.</li>
+        <li>Fraqueza súbita, confusão, fala enrolada (sinais neurológicos).</li>
+      </ul>
+    </section>
+
+    <!-- Reabilitação Cardíaca -->
+    <section id="rc" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="rc">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-hands-holding-heart" aria-hidden="true"></i> Reabilitação cardíaca (RC)</h3>
+      <p>A <strong>reabilitação cardíaca baseada em exercícios</strong> é uma das estratégias mais eficazes de prevenção secundária.</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4>Benefícios</h4>
+          <ul>
+            <li>Reduz risco de novo infarto e internações.</li>
+            <li>Melhora resistência, força e qualidade de vida.</li>
+          </ul>
+        </div>
+        <div class="callout info">
+          <h4>Como funciona</h4>
+          <ul>
+            <li>Exercícios supervisionados, educação (dieta, pressão, hábitos) e suporte emocional.</li>
+            <li>Pode ser em serviço de saúde, comunidade ou em casa com acompanhamento.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="section-title" style="font-size:18px"><i class="fa-solid fa-people-roof" aria-hidden="true"></i> Papel da família e cuidadores</h4>
+      <ul class="alert-list">
+        <li>Ajudar na <strong>adesão aos medicamentos</strong> e organização de horários.</li>
+        <li>Incentivar atividades leves com segurança.</li>
+        <li>Apoio emocional para reduzir estresse e ansiedade.</li>
+        <li>Reforçar hábitos saudáveis no dia a dia.</li>
+      </ul>
+    </section>
+
+    <!-- VÍDEOS -->
+    <section id="videos" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="videos">🔊 Ouvir este tópico</button>
+      </div>
+
+      <div class="section-head">
+        <h3 class="section-title"><i class="fa-solid fa-video" aria-hidden="true"></i> Vídeos</h3>
+      </div>
+
+      <div class="video-grid">
+        <article class="card" aria-label="Vídeo Drauzio Varella - Como envelhecer com mais saúde">
+          <div class="video-wrap">
+            <iframe title="Como envelhecer com mais saúde? - Drauzio Varella"
+              src="https://www.youtube.com/embed/pzB6zPJI238"
+              loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Como envelhecer com mais saúde?</h4>
+            <p>Dicas gerais para uma vida mais longa e ativa com Dr. Drauzio Varella.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=pzB6zPJI238" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i> Abrir no YouTube
+            </a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Vídeo 5 dicas para proteger o coração - Ministério da Saúde">
+          <div class="video-wrap">
+            <iframe title="5 dicas para proteger seu coração - Ministério da Saúde"
+              src="https://www.youtube.com/embed/TYewcj0TnFU"
+              loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>5 dicas para proteger seu coração</h4>
+            <p>Orientações simples e eficazes do Ministério da Saúde.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=TYewcj0TnFU" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i> Abrir no YouTube
+            </a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Vídeo Eduardo Machado - Prevenção Cardiovascular e Hábitos de Vida">
+          <div class="video-wrap">
+            <iframe title="Eduardo Machado - Prevenção Cardiovascular e Hábitos de Vida"
+              src="https://www.youtube.com/embed/40eDfXM1ESQ"
+              loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Prevenção Cardiovascular e Hábitos de Vida</h4>
+            <p>Saúde do coração e estilo de vida saudável.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=40eDfXM1ESQ" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i> Abrir no YouTube
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Referências -->
+    <section id="referencias" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="referencias">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-book" aria-hidden="true"></i> Referências bibliográficas</h3>
+      <ol class="refs">
+        <li>Ambrosetti M, et al. Secondary prevention through comprehensive cardiovascular rehabilitation: 2020 update. <em>Eur J Prev Cardiol</em>. 2021. DOI:
+          <a class="doi" href="https://doi.org/10.1177/2047487320963032" target="_blank" rel="noopener">10.1177/2047487320963032</a></li>
+        <li>Dibben G, et al. Exercise-based cardiac rehabilitation for coronary heart disease. <em>Cochrane Database Syst Rev</em>. 2021. DOI:
+          <a class="doi" href="https://doi.org/10.1002/14651858.CD001800.pub4" target="_blank" rel="noopener">10.1002/14651858.CD001800.pub4</a></li>
+        <li>Edwards JJ, et al. Exercise training and resting blood pressure: meta-analysis. <em>Br J Sports Med</em>. 2023. DOI:
+          <a class="doi" href="https://doi.org/10.1136/bjsports-2022-106503" target="_blank" rel="noopener">10.1136/bjsports-2022-106503</a></li>
+        <li>Hu H, et al. Aerobic exercise in older hypertensive patients. <em>Int J Gen Med</em>. 2025. DOI:
+          <a class="doi" href="https://doi.org/10.2147/IJGM.S516371" target="_blank" rel="noopener">10.2147/IJGM.S516371</a></li>
+        <li>Prommaban A, et al. Exercise interventions on frailty. <em>J Clin Med</em>. 2024. DOI:
+          <a class="doi" href="https://doi.org/10.3390/jcm13216570" target="_blank" rel="noopener">10.3390/jcm13216570</a></li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Voltar ao topo -->
+  <button id="toTop" class="to-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anoAtual"></span> Vida Saudável 60+. Conteúdo educativo.</p>
+    </div>
+  </footer>
+
+  <!-- JS base -->
+  <script src="script1.js"></script>
+
+  <!-- JS extra (fonte + áudio por tópicos) -->
+  <script>
+    (() => {
+      // ===== Data e ano (caso seu script1.js não faça) =====
+      const anoEl = document.getElementById('anoAtual');
+      if (anoEl) anoEl.textContent = new Date().getFullYear();
+
+      const dataEl = document.getElementById('dataHoje');
+      if (dataEl && !dataEl.textContent.trim()) {
+        const agora = new Date();
+        const dias = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+        const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+        dataEl.textContent = `${dias[agora.getDay()]}, ${agora.getDate()} de ${meses[agora.getMonth()]} de ${agora.getFullYear()}`;
+      }
+
+      // ===== Fonte (A- / A+ / Padrão) =====
+      const MIN_PX = 16, MAX_PX = 26, STEP = 1, DEFAULT_PX = 18;
+      const hint = document.getElementById('fontHint');
+
+      function getFontPx() {
+        const saved = Number(localStorage.getItem("vs60_font_px"));
+        if (saved && saved >= MIN_PX && saved <= MAX_PX) return saved;
+        const css = Number(getComputedStyle(document.documentElement).fontSize.replace("px",""));
+        return css || DEFAULT_PX;
+      }
+      function setFontPx(px) {
+        const v = Math.max(MIN_PX, Math.min(MAX_PX, px));
+        document.documentElement.style.fontSize = v + "px";
+        localStorage.setItem("vs60_font_px", String(v));
+        if (hint) hint.textContent = `Tamanho: ${v}px`;
+      }
+      setFontPx(getFontPx());
+      document.getElementById("fontDec")?.addEventListener("click", () => setFontPx(getFontPx() - STEP));
+      document.getElementById("fontInc")?.addEventListener("click", () => setFontPx(getFontPx() + STEP));
+      document.getElementById("fontReset")?.addEventListener("click", () => setFontPx(DEFAULT_PX));
+
+      // ===== Leitura por voz (áudio descrição por tópico) =====
+      const hasTTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+      const statusEl = document.getElementById("ttsStatus");
+      const setStatus = (msg) => { if (statusEl) statusEl.textContent = msg; };
+
+      function pickPtVoice() {
+        const voices = speechSynthesis.getVoices?.() || [];
+        return voices.find(v => /pt-BR/i.test(v.lang)) || voices.find(v => /^pt/i.test(v.lang)) || null;
+      }
+
+      function stopSpeak() {
+        if (!hasTTS) return;
+        speechSynthesis.cancel();
+        setStatus("Leitura parada.");
+      }
+
+      function pauseOrResume() {
+        if (!hasTTS) return;
+        if (speechSynthesis.speaking && !speechSynthesis.paused) {
+          speechSynthesis.pause();
+          setStatus("Leitura pausada.");
+          return;
+        }
+        if (speechSynthesis.paused) {
+          speechSynthesis.resume();
+          setStatus("Leitura retomada.");
+        }
+      }
+
+      function speakText(text) {
+        if (!hasTTS) { alert("Seu navegador não suporta leitura em voz. Use o Google Chrome 😉"); return; }
+        const clean = (text || "").replace(/\s+/g, " ").trim();
+        if (!clean) return;
+
+        stopSpeak();
+
+        const u = new SpeechSynthesisUtterance(clean);
+        const voice = pickPtVoice();
+        if (voice) u.voice = voice;
+
+        u.lang = voice?.lang || "pt-BR";
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        u.volume = 1.0;
+
+        u.onstart = () => setStatus("Lendo em voz alta...");
+        u.onend = () => setStatus("Leitura concluída.");
+        u.onerror = () => setStatus("Não foi possível ler este trecho.");
+
+        speechSynthesis.speak(u);
+      }
+
+      function extractCleanText(root) {
+        if (!root) return "";
+        const clone = root.cloneNode(true);
+
+        const removeSelectors = [
+          ".a11y-bar",
+          ".audio-toolbar",
+          "header",
+          "#progressBar",
+          "nav", "button", "a",
+          "iframe", ".thumb", ".video-wrap", ".actions-row",
+          "script", "style",
+          "i",
+          "footer",
+          "#toTop"
+        ];
+        clone.querySelectorAll(removeSelectors.join(",")).forEach(el => el.remove());
+
+        return (clone.textContent || "")
+          .replace(/[ \t]+\n/g, "\n")
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/[ \t]{2,}/g, " ")
+          .trim();
+      }
+
+      // Botões globais
+      document.getElementById("ttsPlayPage")?.addEventListener("click", () => {
+        const main = document.querySelector("main");
+        speakText(extractCleanText(main));
+      });
+      document.getElementById("ttsPause")?.addEventListener("click", pauseOrResume);
+      document.getElementById("ttsStop")?.addEventListener("click", stopSpeak);
+
+      // Botões por tópico
+      document.querySelectorAll(".audio-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-section");
+          if (target === "page-all") {
+            const main = document.querySelector("main");
+            speakText(extractCleanText(main));
+            return;
+          }
+          const sec = document.getElementById(target);
+          speakText(extractCleanText(sec));
+        });
+      });
+
+      // Atalhos: Alt+L (página), Alt+P (pausar), Alt+X (parar)
+      document.addEventListener("keydown", (e) => {
+        if (!e.altKey) return;
+        const k = e.key.toLowerCase();
+        if (k === "l") { e.preventDefault(); document.getElementById("ttsPlayPage")?.click(); }
+        if (k === "p") { e.preventDefault(); pauseOrResume(); }
+        if (k === "x") { e.preventDefault(); stopSpeak(); }
+      });
+
+      // Carrega vozes (alguns navegadores precisam)
+      if (hasTTS && speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {};
+      }
+
+      window.addEventListener("beforeunload", stopSpeak);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Políticas de Envelhecimento Ativo no SUS • Vida Saudável 60+</title>
+  <meta name="description" content="Marco legal do SUS para a pessoa idosa (PNSPI), instrumentos de gestão e cuidado, participação e protagonismo, e políticas públicas de mobilidade para o envelhecimento ativo." />
+
+  <!-- Fontes e Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS do projeto -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ===== Extras (A11y + Áudio) ===== -->
+  <style>
+    :root{ font-size:18px; }
+
+    /* SR only */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* Leitura fácil */
+    body.easy-read{
+      background:#fff !important; color:#000 !important;
+      font-size:1.18rem; line-height:2;
+      letter-spacing:.2px;
+    }
+
+    /* Barra A11y no header */
+    .a11y-row{ margin-top:.75rem; }
+    .a11y-inner{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding-top:.4rem;
+      border-top:1px solid rgba(0,0,0,.12);
+    }
+    .btn-a11y, .audio-btn{
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 3px 8px rgba(0,0,0,.05);
+    }
+    .btn-a11y:hover, .audio-btn:hover{ transform:translateY(-1px); }
+    .btn-a11y:focus, .audio-btn:focus{ outline:3px solid rgba(255,122,0,.25); outline-offset:2px; }
+    .a11y-sep{ width:1px; height:32px; background:rgba(0,0,0,.12); margin:0 2px; }
+    .font-hint{ font-size:14px; opacity:.75; margin-left:6px; }
+
+    /* Toolbar de áudio por tópico */
+    .audio-toolbar{ margin:0 0 12px; }
+
+    /* Botão leitura fácil fixo */
+    #easyReadBtn{
+      position:fixed; left:16px; bottom:16px; z-index:999;
+      border:0; border-radius:999px;
+      background:#ffd633; color:#000;
+      font-weight:800;
+      padding:.65rem 1rem;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+      cursor:pointer;
+    }
+
+    @media (max-width:768px){
+      .btn-a11y, .audio-btn{ padding:9px 10px; }
+      .a11y-inner{ gap:8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de progresso -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="index.html" aria-label="Página inicial Vida Saudável 60+">
+        <span class="brand-badge" aria-hidden="true">60+</span>
+        <div class="brand-text">
+          <h1>Vida Saudável</h1>
+          <p>Saúde • Dicas • Jogos</p>
+        </div>
+      </a>
+
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="topNav" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="topNav" class="top-nav" aria-label="Navegação principal">
+        <a href="index.html#noticias">Notícias</a>
+        <a href="index.html#jogos">Jogos</a>
+        <a href="index.html#videos">Vídeos</a>
+        <a href="index.html#dicas">Dicas</a>
+      </nav>
+    </div>
+
+    <!-- A11y + Áudio (igual os outros) -->
+    <div class="container a11y-row" role="region" aria-label="Acessibilidade e leitura em áudio">
+      <div class="a11y-inner">
+        <button class="btn-a11y" id="fontDec" type="button" aria-label="Diminuir tamanho da letra">A-</button>
+        <button class="btn-a11y" id="fontInc" type="button" aria-label="Aumentar tamanho da letra">A+</button>
+        <button class="btn-a11y" id="fontReset" type="button" aria-label="Voltar tamanho padrão">Padrão</button>
+        <span class="font-hint" id="fontHint" aria-live="polite"></span>
+
+        <span class="a11y-sep" aria-hidden="true"></span>
+
+        <button class="btn-a11y" id="ttsPlayPage" type="button" aria-label="Ouvir a página inteira">🔊 Ouvir página</button>
+        <button class="btn-a11y" id="ttsPause" type="button" aria-label="Pausar ou continuar leitura">⏸ Pausar</button>
+        <button class="btn-a11y" id="ttsStop" type="button" aria-label="Parar leitura">⏹ Parar</button>
+        <small id="ttsStatus" class="sr-only" aria-live="polite"></small>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <small id="dataHoje" class="hero-date" aria-live="polite"></small>
+        <h2>Políticas de <span>Envelhecimento Ativo</span> no SUS</h2>
+        <p>Envelhecimento ativo é otimizar oportunidades de <strong>saúde</strong>, <strong>participação</strong> e <strong>segurança</strong> para melhorar a qualidade de vida à medida que envelhecemos. Veja como o SUS organiza esse cuidado.</p>
+
+        <div class="audio-toolbar">
+          <button class="audio-btn" type="button" data-section="page-all">🔊 Ouvir a página inteira</button>
+        </div>
+
+        <!-- Sumário -->
+        <nav class="toc" aria-label="Sumário desta página">
+          <strong>Sumário</strong>
+          <ul>
+            <li><a href="#conceito-oms">Conceito estratégico (OMS)</a></li>
+            <li><a href="#marco-legal">1. Marco legal e conceitual no SUS</a></li>
+            <li><a href="#instrumentos">2. Instrumentos de gestão e cuidado</a></li>
+            <li><a href="#participacao">3. Participação e protagonismo</a></li>
+            <li><a href="#video">Vídeo explicativo</a></li>
+            <li><a href="#mobilidade">5. Políticas públicas de mobilidade e envelhecimento</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <aside class="alerta" role="note" aria-label="Aviso importante">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <h3>Informação, não diagnóstico</h3>
+          <p>Conteúdo educativo. Procure sua equipe de saúde para avaliação clínica ou dúvidas sobre direitos e serviços.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <!-- Conceito OMS -->
+    <section id="conceito-oms" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="conceito-oms">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-globe"></i> Conceito estratégico (OMS)</h3>
+      <p>A Organização Mundial da Saúde (OMS) define <strong>envelhecimento ativo</strong> como o processo de <em>otimizar oportunidades para saúde, participação e segurança</em> com o objetivo de realçar a qualidade de vida ao envelhecer. No SUS, esse conceito orienta políticas, serviços e ações intersetoriais.</p>
+    </section>
+
+    <!-- 1. Marco Legal e Conceitual -->
+    <section id="marco-legal" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="marco-legal">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-scale-balanced"></i> 1. Marco legal e conceitual no SUS</h3>
+      <p>A <strong>Política Nacional de Saúde da Pessoa Idosa (PNSPI)</strong> (2006), consolidada na <strong>Portaria de Consolidação GM/MS nº 2/2017</strong>, organiza a atenção à saúde do idoso no Brasil com foco em:</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4><i class="fa-solid fa-person-cane"></i> Abordagem centrada na funcionalidade</h4>
+          <p>O cuidado parte da <strong>capacidade funcional</strong> global (grau de dependência, risco de fragilidade) como principal indicador de saúde da pessoa idosa.</p>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-diagram-project"></i> Integralidade e intersetorialidade</h4>
+          <p>Articulação entre pontos da <strong>Rede de Atenção à Saúde</strong> e com outros setores (assistência social, transporte, urbanismo, cultura), reduzindo fragmentação do cuidado.</p>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-heart-pulse"></i> Promoção de hábitos saudáveis</h4>
+          <p>Ações para alimentação adequada, <strong>atividade física regular</strong>, controle de DCNT, saúde mental e <strong>convivência social</strong> estimulante.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Instrumentos de Gestão e Cuidado -->
+    <section id="instrumentos" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="instrumentos">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-toolbox"></i> 2. Instrumentos de gestão e cuidado no SUS</h3>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4><i class="fa-solid fa-notes-medical"></i> Caderneta de Saúde da Pessoa Idosa</h4>
+          <p>Instrumento do Ministério da Saúde para <strong>avaliação multidimensional</strong> (funcional e psicossocial), identificação de vulnerabilidades e orientação ao <strong>autocuidado</strong>, promovendo autonomia e independência.</p>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-people-arrows"></i> Linhas de cuidado &amp; Matriciamento</h4>
+          <p>Organizam fluxos entre APS, atenção especializada, reabilitação e hospital. O <strong>apoio matricial</strong> (ex.: geriatria/gerontologia) fortalece a APS com educação permanente e planos compartilhados.</p>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-house-medical"></i> Atenção Domiciliar e cuidado comunitário</h4>
+          <ul class="list">
+            <li><strong>Melhor em Casa</strong> (SAD): modalidade domiciliar integrada à Rede de Atenção.</li>
+            <li><strong>PAI</strong> (SP): acompanhamento no domicílio, apoio às AVD.</li>
+            <li><strong>PMC</strong> (BH): parceria Saúde–Assistência para prevenir institucionalização e apoiar a família cuidadora.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Participação e Protagonismo -->
+    <section id="participacao" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="participacao">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-users"></i> 3. Ênfase na participação e no protagonismo</h3>
+      <p>Envelhecer ativamente é <strong>mais que ausência de doença</strong>: envolve manter a capacidade funcional com <strong>engajamento ativo</strong> na vida comunitária.</p>
+
+      <div class="tips">
+        <div class="tip"><i class="fa-solid fa-handshake-angle" aria-hidden="true"></i><div><strong>Inclusão social e intergeracionalidade:</strong> atividades socioculturais, esporte/lazer e projetos que aproximam gerações combatem o idadismo e favorecem reinserção social.</div></div>
+        <div class="tip"><i class="fa-solid fa-id-card-clip" aria-hidden="true"></i><div><strong>Valorização da cidadania:</strong> enfrentamento à violência/abandono; informação sobre direitos, canais de denúncia e rede de proteção.</div></div>
+      </div>
+    </section>
+
+    <!-- 5. Políticas públicas de mobilidade -->
+    <section id="mobilidade" class="section container">
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="mobilidade">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-person-walking-with-cane"></i> 5. Políticas públicas de mobilidade e envelhecimento</h3>
+      <p>A mobilidade segura sustenta a <strong>autonomia</strong>, o acesso a serviços e a participação social. Ações intersetoriais (saúde, transporte, urbanismo, assistência) favorecem o <strong>envelhecimento ativo</strong> no território.</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4><i class="fa-solid fa-road"></i> Acessibilidade urbana</h4>
+          <ul class="list">
+            <li>Calçadas regulares com rampas e <strong>piso tátil</strong> contínuo.</li>
+            <li>Travessias com <strong>tempo semafórico ampliado</strong>, faixas elevadas e boa <strong>iluminação</strong>.</li>
+            <li>Espaços de descanso (bancos, sombreamento) em rotas de serviços públicos.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-bus"></i> Transporte público amigável</h4>
+          <ul class="list">
+            <li>Ônibus com <strong>piso baixo</strong>, elevadores/plataformas e assentos preferenciais.</li>
+            <li>Pontos com cobertura, assentos e sinalização clara (visual/sonora).</li>
+            <li>Informação acessível (tamanho de fonte, contrastes, aplicativos simples).</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <h4><i class="fa-solid fa-heart-circle-bolt"></i> Mobilidade ativa &amp; reabilitação</h4>
+          <ul class="list">
+            <li>Grupos de <strong>caminhada orientada</strong> em UBS, praças e parques.</li>
+            <li>Integração com <strong>reabilitação</strong> (fisioterapia) e <strong>Tecnologia Assistiva</strong> (bengalas, andadores, barras).</li>
+            <li>Ambientes públicos <strong>amigáveis à idade</strong> (diretrizes de “cidade amiga do idoso”).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tabela: Desafios x Ações -->
+      <div class="compare" style="margin-top:12px">
+        <table class="clean table--stack" aria-label="Desafios e ações para mobilidade no envelhecimento">
+          <thead>
+            <tr>
+              <th style="width:50%">Desafio</th>
+              <th style="width:50%">Ação intersetorial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-th="Desafio">Quedas em calçadas irregulares e pouca iluminação</td>
+              <td data-th="Ação">Manutenção de calçadas, <strong>iluminação pública</strong>, travessias elevadas e <strong>piso tátil</strong></td>
+            </tr>
+            <tr>
+              <td data-th="Desafio">Dificuldade para embarque no transporte</td>
+              <td data-th="Ação"><strong>Piso baixo</strong>, elevadores, assentos preferenciais e pontos com cobertura/assento</td>
+            </tr>
+            <tr>
+              <td data-th="Desafio">Baixa capacidade funcional</td>
+              <td data-th="Ação"><strong>Reabilitação</strong> + grupos de caminhada e <strong>TA</strong> (bengala/andador)</td>
+            </tr>
+            <tr>
+              <td data-th="Desafio">Informação pouco acessível</td>
+              <td data-th="Ação">Sinalização com alto contraste, fontes grandes e canais digitais simples</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Vídeo -->
+  <section id="video" class="section container" aria-labelledby="titulo-video">
+    <div class="audio-toolbar">
+      <button class="audio-btn" type="button" data-section="video">🔊 Ouvir este tópico</button>
+    </div>
+
+    <h3 id="titulo-video" class="section-title">
+      <i class="fa-solid fa-video" aria-hidden="true"></i> Vídeo explicativo
+    </h3>
+
+    <figure class="figure" role="group" aria-label="Vídeo: políticas de envelhecimento ativo no SUS">
+      <div class="video-wrap" role="region" aria-label="Player do YouTube: Políticas de envelhecimento ativo no SUS" style="position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:14px; overflow:hidden;">
+        <iframe
+          title="Políticas de Envelhecimento Ativo no SUS — Vídeo"
+          src="https://www.youtube-nocookie.com/embed/K3C0PdKDgIM?rel=0&modestbranding=1"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+        </iframe>
+      </div>
+      <figcaption class="video-caption" style="padding:12px; color:#444; font-size:15px;">
+        Políticas de envelhecimento ativo no SUS e como acessar serviços na rede.
+        <br>
+        <a class="video-actions" href="https://youtu.be/K3C0PdKDgIM" target="_blank" rel="noopener" style="text-decoration:underline; font-weight:500;">
+          Abrir no YouTube
+        </a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- Voltar ao topo -->
+  <button id="toTop" class="to-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- Leitura fácil -->
+  <button id="easyReadBtn" type="button" aria-label="Ativar modo leitura fácil">👁️ Leitura Fácil</button>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anoAtual"></span> Vida Saudável 60+. Conteúdo educativo.</p>
+    </div>
+  </footer>
+
+  <!-- JS do projeto (mantém) -->
+  <script src="script.js"></script>
+
+  <!-- JS desta página (com áudio + A11y) -->
+  <script>
+    (function(){
+      // ===== Data e ano =====
+      const d = new Date();
+      const dataHoje = document.getElementById('dataHoje');
+      const anoAtual = document.getElementById('anoAtual');
+      if(dataHoje) dataHoje.textContent = d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+      if(anoAtual) anoAtual.textContent = d.getFullYear();
+
+      // ===== Menu mobile =====
+      const btn = document.getElementById('menuBtn');
+      const nav = document.getElementById('topNav');
+      btn?.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      // ===== Barra de progresso + voltar ao topo =====
+      const bar = document.getElementById('progressBar');
+      const toTop = document.getElementById('toTop');
+      const onScroll = () => {
+        const h = document.documentElement;
+        const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+        if(bar) bar.style.width = scrolled + '%';
+        if(toTop){
+          h.scrollTop > 240 ? toTop.classList.add('show') : toTop.classList.remove('show');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // ===== Leitura Fácil =====
+      document.getElementById('easyReadBtn')?.addEventListener('click', () => {
+        document.body.classList.toggle('easy-read');
+      });
+
+      // ===== Fonte (A- / A+ / Padrão) =====
+      const MIN_PX = 16, MAX_PX = 26, STEP = 1, DEFAULT_PX = 18;
+      const hint = document.getElementById('fontHint');
+
+      function getFontPx() {
+        const saved = Number(localStorage.getItem("vs60_font_px"));
+        if (saved && saved >= MIN_PX && saved <= MAX_PX) return saved;
+        const css = Number(getComputedStyle(document.documentElement).fontSize.replace("px",""));
+        return css || DEFAULT_PX;
+      }
+      function setFontPx(px) {
+        const v = Math.max(MIN_PX, Math.min(MAX_PX, px));
+        document.documentElement.style.fontSize = v + "px";
+        localStorage.setItem("vs60_font_px", String(v));
+        if (hint) hint.textContent = `Tamanho: ${v}px`;
+      }
+      setFontPx(getFontPx());
+      document.getElementById("fontDec")?.addEventListener("click", () => setFontPx(getFontPx() - STEP));
+      document.getElementById("fontInc")?.addEventListener("click", () => setFontPx(getFontPx() + STEP));
+      document.getElementById("fontReset")?.addEventListener("click", () => setFontPx(DEFAULT_PX));
+
+      // ===== Leitura em voz alta (TTS) =====
+      const hasTTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+      const statusEl = document.getElementById("ttsStatus");
+      const setStatus = (msg) => { if (statusEl) statusEl.textContent = msg; };
+
+      function pickPtVoice() {
+        const voices = speechSynthesis.getVoices?.() || [];
+        return voices.find(v => /pt-BR/i.test(v.lang)) || voices.find(v => /^pt/i.test(v.lang)) || null;
+      }
+
+      function stopSpeak() {
+        if (!hasTTS) return;
+        speechSynthesis.cancel();
+        setStatus("Leitura parada.");
+      }
+
+      function pauseOrResume() {
+        if (!hasTTS) return;
+        if (speechSynthesis.speaking && !speechSynthesis.paused) {
+          speechSynthesis.pause();
+          setStatus("Leitura pausada.");
+          return;
+        }
+        if (speechSynthesis.paused) {
+          speechSynthesis.resume();
+          setStatus("Leitura retomada.");
+        }
+      }
+
+      function speakText(text) {
+        if (!hasTTS) {
+          alert("Seu navegador não suporta leitura em voz. Use o Google Chrome 😉");
+          return;
+        }
+        const clean = (text || "").replace(/\s+/g, " ").trim();
+        if (!clean) return;
+
+        stopSpeak();
+
+        const u = new SpeechSynthesisUtterance(clean);
+        const voice = pickPtVoice();
+        if (voice) u.voice = voice;
+
+        u.lang = voice?.lang || "pt-BR";
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        u.volume = 1.0;
+
+        u.onstart = () => setStatus("Lendo em voz alta...");
+        u.onend   = () => setStatus("Leitura concluída.");
+        u.onerror = () => setStatus("Não foi possível ler este trecho.");
+
+        speechSynthesis.speak(u);
+      }
+
+      function extractCleanText(root) {
+        if (!root) return "";
+        const clone = root.cloneNode(true);
+
+        // mantém texto dos links
+        clone.querySelectorAll("a").forEach(a => {
+          const t = document.createTextNode(a.textContent || "");
+          a.replaceWith(t);
+        });
+
+        // remove controles e coisas sem interesse na leitura
+        const removeSelectors = [
+          ".audio-toolbar",
+          ".a11y-row",
+          "#progressBar",
+          "nav",
+          "button",
+          "script",
+          "style",
+          "i",
+          "#toTop",
+          "#easyReadBtn",
+          "iframe"
+        ];
+        clone.querySelectorAll(removeSelectors.join(",")).forEach(el => el.remove());
+
+        return (clone.textContent || "")
+          .replace(/[ \t]+\n/g, "\n")
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/[ \t]{2,}/g, " ")
+          .trim();
+      }
+
+      // Botões globais
+      document.getElementById("ttsPlayPage")?.addEventListener("click", () => {
+        const main = document.querySelector("main");
+        // inclui também a seção de vídeo (fora do main)
+        const video = document.getElementById("video");
+        const text = extractCleanText(main) + "\n\n" + extractCleanText(video);
+        speakText(text);
+      });
+      document.getElementById("ttsPause")?.addEventListener("click", pauseOrResume);
+      document.getElementById("ttsStop")?.addEventListener("click", stopSpeak);
+
+      // Botões por tópico (e “page-all”)
+      document.querySelectorAll(".audio-btn").forEach(b => {
+        b.addEventListener("click", () => {
+          const target = b.getAttribute("data-section");
+          if (target === "page-all") {
+            document.getElementById("ttsPlayPage")?.click();
+            return;
+          }
+          const sec = document.getElementById(target);
+          speakText(extractCleanText(sec));
+        });
+      });
+
+      // Atalhos: Alt+L (página), Alt+P (pausar), Alt+X (parar)
+      document.addEventListener("keydown", (e) => {
+        if (!e.altKey) return;
+        const k = e.key.toLowerCase();
+        if (k === "l") { e.preventDefault(); document.getElementById("ttsPlayPage")?.click(); }
+        if (k === "p") { e.preventDefault(); pauseOrResume(); }
+        if (k === "x") { e.preventDefault(); stopSpeak(); }
+      });
+
+      if (hasTTS && speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {};
+      }
+      window.addEventListener("beforeunload", stopSpeak);
+    })();
+  </script>
+</body>
+</html>

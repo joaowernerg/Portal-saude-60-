@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jogo da Memória • Frutas (10 níveis)</title>
+  <meta name="description" content="Jogo da memória de FRUTAS, responsivo, que ajusta as cartas para caberem 100% na tela em qualquer nível. Perfeito para celular." />
+  <link rel="stylesheet" href="memoria-frutas.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="container bar">
+    <div class="brand">
+      <div class="brand-badge">🍓</div>
+      <div>
+        <h1>Jogo da Memória • Frutas</h1>
+        <p>10 níveis • cabe 100% na tela</p>
+      </div>
+    </div>
+    <button id="btnRestartTop" class="btn" type="button" aria-label="Reiniciar nível">↻ Reiniciar</button>
+  </div>
+</header>
+
+<section class="container">
+  <div class="hud">
+    <div class="panel">
+      <div class="stats" role="group" aria-label="Informações da partida">
+        <div class="stat"><span>Nível</span><b id="uiLevel">1/10</b></div>
+        <div class="stat"><span>Tempo</span><b id="uiTime">00:00</b></div>
+        <div class="stat"><span>Movs</span><b id="uiMoves">0</b></div>
+      </div>
+      <div class="controls">
+        <button id="btnPrev" class="btn" type="button" aria-label="Nível anterior">◀ Anterior</button>
+        <button id="btnNext" class="btn primary" type="button" aria-label="Próximo nível">Próximo ▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container board-wrap">
+  <section id="board" class="board" aria-label="Tabuleiro do jogo"></section>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="modal-wrap" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Nível concluído! ✅</h3>
+    <p id="modalStats">Tempo — • Movimentos —</p>
+    <div class="row">
+      <button id="mAgain" class="btn" type="button">Jogar de novo</button>
+      <button id="mNext" class="btn primary" type="button">Próximo nível ▶</button>
+    </div>
+  </div>
+</div>
+
+<script src="memoria-frutas.js" defer></script>
+</body>
+</html>

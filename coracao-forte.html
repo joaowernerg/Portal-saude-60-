@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entendendo seu Coração • Fisiologia, Movimento e Reabilitação</title>
+  <meta name="description" content="Guia prático e acessível: como o coração funciona, por que o movimento diário protege a saúde e o papel da reabilitação cardíaca. Com vídeos, imagem educativa e referências." />
+
+  <!-- Fontes e ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS base do projeto -->
+  <link rel="stylesheet" href="style1.css" />
+
+  <!-- ATUALIZADO: Fonte + Áudio (mantém seus botões por tópico) -->
+  <style>
+    /* Letras maiores por padrão (60+) */
+    :root { font-size: 18px; }
+    body { line-height: 1.7; }
+
+    /* Barra acessível (fonte + áudio) */
+    .a11y-bar{
+      position: sticky; top: 0; z-index: 80;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .a11y-inner{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding:10px 0;
+    }
+    .btn-a11y{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn-a11y:focus{ outline:3px solid rgba(12,107,95,.25); outline-offset:2px; }
+    .a11y-sep{ width:1px; height:32px; background:var(--border); margin:0 2px; }
+    .font-hint{ font-size:14px; opacity:.75; margin-left:6px; }
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* Caso seu style1.css não tenha isso */
+    .audio-toolbar{ margin: 10px 0 14px; }
+    .audio-btn{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .audio-btn:focus{ outline:3px solid rgba(12,107,95,.25); outline-offset:2px; }
+  </style>
+</head>
+
+<body>
+  <!-- Barra de progresso de leitura -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- Cabeçalho -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <!-- volta para o index na seção de notícias -->
+      <a class="brand" href="index.html#noticias" aria-label="Página inicial Vida Saudável 60+">
+        <span class="brand-badge" aria-hidden="true">60+</span>
+        <div class="brand-text">
+          <h1>Vida Saudável</h1>
+          <p>Saúde • Movimento • Longevidade</p>
+        </div>
+      </a>
+
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="topNav" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="topNav" class="top-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#fisiologia">Fisiologia</a>
+        <a href="#sinergia">Coração, pulmão e músculos</a>
+        <a href="#movimento">Movimento diário</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#imagem">Imagem</a>
+        <a href="#referencias">Referências</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ATUALIZADO: Barra fixa com A-/A+/Padrão + Ouvir/Pausar/Parar -->
+  <div class="a11y-bar" role="region" aria-label="Acessibilidade: tamanho da letra e áudio">
+    <div class="container a11y-inner">
+      <button class="btn-a11y" id="fontDec" type="button" aria-label="Diminuir tamanho da letra">A-</button>
+      <button class="btn-a11y" id="fontInc" type="button" aria-label="Aumentar tamanho da letra">A+</button>
+      <button class="btn-a11y" id="fontReset" type="button" aria-label="Voltar tamanho padrão">Padrão</button>
+      <span class="font-hint" id="fontHint" aria-live="polite"></span>
+
+      <span class="a11y-sep" aria-hidden="true"></span>
+
+      <button class="btn-a11y" id="ttsPlayPage" type="button" aria-label="Ouvir a página inteira">🔊 Ouvir página</button>
+      <button class="btn-a11y" id="ttsPause" type="button" aria-label="Pausar ou continuar">⏸ Pausar</button>
+      <button class="btn-a11y" id="ttsStop" type="button" aria-label="Parar leitura">⏹ Parar</button>
+      <small id="ttsStatus" class="sr-only" aria-live="polite"></small>
+    </div>
+  </div>
+
+  <!-- Botão voltar -->
+  <section class="section container" style="padding-top:20px; padding-bottom:0;">
+    <a class="btn btn-light" href="index.html#noticias">← Voltar para a página inicial</a>
+  </section>
+
+  <!-- Hero -->
+  <section id="inicio" class="hero" data-animate>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <small id="dataHoje" class="hero-date" aria-live="polite"></small>
+        <h2>Entendendo seu <span>Coração</span></h2>
+        <p>Como ele funciona, por que o movimento diário é essencial e como a <strong>reabilitação cardíaca</strong> pode transformar sua saúde.</p>
+
+        <!-- Áudio da página inteira (mantido) -->
+        <div class="audio-toolbar">
+          <button class="audio-btn" type="button" data-section="page-all">
+            🔊 Ouvir a página inteira
+          </button>
+        </div>
+
+        <!-- Sumário rápido -->
+        <nav class="toc" aria-label="Sumário desta página">
+          <strong>Sumário</strong>
+          <ul>
+            <li><a href="#fisiologia">Cuidando do Coração: Energia para a Vida</a></li>
+            <li><a href="#sinergia">Coração, pulmão e músculos</a></li>
+            <li><a href="#movimento">Mexa-se todos os dias</a></li>
+            <li><a href="#videos">Vídeos e recursos</a></li>
+            <li><a href="#imagem">Imagem explicativa</a></li>
+            <li><a href="#referencias">Referências bibliográficas</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <aside class="alerta" data-animate>
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <h3>Atenção</h3>
+          <p>Este conteúdo é educativo e <strong>não substitui</strong> avaliação médica. Se sentir dor no peito, falta de ar intensa, tontura forte ou inchaço importante nas pernas, <strong>procure atendimento</strong>.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <!-- Seção Fisiologia -->
+    <section id="fisiologia" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="fisiologia">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-heart-pulse"></i> Cuidando do Coração: Energia para a Vida</h3>
+
+      <p>O coração é o <strong>motor da vida</strong>, responsável por levar sangue e energia para todo o corpo. Ele funciona como uma bomba:</p>
+      <ul class="list">
+        <li><strong>Lado direito</strong>: recebe o sangue com pouco oxigênio e o envia aos pulmões para ser “limpo”.</li>
+        <li><strong>Lado esquerdo</strong>: bombeia o sangue rico em oxigênio para órgãos e músculos, mantendo tudo funcionando.</li>
+      </ul>
+
+      <p>Com o passar dos anos, o coração e as artérias podem ficar mais rígidos, o que tende a elevar a pressão arterial e causar cansaço. O <strong>excesso de sal</strong> na alimentação também aumenta a pressão, especialmente em pessoas idosas.</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <h4>Cuidados essenciais</h4>
+          <ul>
+            <li>Reduza <strong>sal</strong> e <strong>gorduras</strong> na alimentação.</li>
+            <li>Faça <strong>caminhadas leves</strong> diariamente.</li>
+            <li>Mantenha <strong>acompanhamento médico</strong> regular.</li>
+          </ul>
+          <p>Pequenos cuidados mantêm o coração forte — <em>cuidar do coração é cuidar da vida</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sinergia dos sistemas -->
+    <section id="sinergia" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="sinergia">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-lungs"></i> Coração, pulmão e músculos: trabalho em equipe</h3>
+      <p>O pulmão coloca oxigênio no sangue, o coração o distribui pelo corpo e os músculos usam esse oxigênio para gerar <strong>energia e movimento</strong>. Quando essa parceria funciona bem, o corpo fica mais forte e saudável.</p>
+      <p><strong>Ficar parado por muito tempo faz mal</strong>: enfraquece os músculos, piora a circulação e aumenta o risco de pressão alta e doenças do coração. <em>Pequenas pausas</em> para levantar, caminhar ou alongar já ajudam o coração a trabalhar melhor.</p>
+      <p>Durante o movimento, coração e pulmão aceleram para levar mais oxigênio aos músculos. Com <strong>atividades leves e regulares</strong>, o coração se fortalece, a circulação melhora e o corpo fica mais resistente ao cansaço.</p>
+    </section>
+
+    <!-- Movimento e Reabilitação -->
+    <section id="movimento" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="movimento">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-person-walking"></i> Mexa-se todos os dias</h3>
+      <p><strong>Caminhar, dançar ou alongar</strong> diariamente é uma das melhores formas de manter o coração saudável.</p>
+
+      <div class="tips">
+        <div class="tip">
+          <i class="fa-solid fa-comments" aria-hidden="true"></i>
+          <div><strong>Regra da conversa</strong>: durante o exercício, você deve conseguir conversar sem ficar sem ar. Se não conseguir, está pesado demais.</div>
+        </div>
+        <div class="tip">
+          <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+          <div><strong>Sinais de alerta</strong>: falta de ar importante, dor no peito, cansaço extremo ou inchaço nas pernas exigem avaliação médica.</div>
+        </div>
+        <div class="tip">
+          <i class="fa-solid fa-hands-bubbles" aria-hidden="true"></i>
+          <div><strong>Fisioterapia ajuda</strong>: exercícios leves, alongamentos e respiração profunda melhoram circulação, reduzem a pressão e fortalecem o coração.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vídeos -->
+    <section id="videos" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="videos">🔊 Ouvir explicação dos vídeos</button>
+      </div>
+
+      <div class="section-head">
+        <h3 class="section-title"><i class="fa-solid fa-video"></i> Vídeos e recursos</h3>
+      </div>
+
+      <div class="video-grid">
+        <article class="card">
+          <div class="thumb">
+            <iframe title="Anatomia 3D do coração" src="https://www.youtube.com/embed/BBk7VKpG4Mg" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Anatomia do coração (3D)</h4>
+            <p>Visualize as câmaras e o fluxo do sangue.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=BBk7VKpG4Mg" target="_blank" rel="noopener">Abrir no YouTube</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <iframe title="Circulação sanguínea - Hemocentro RP" src="https://www.youtube.com/embed/lrzCIUTBgds" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Circulação sanguínea</h4>
+            <p>Como o sangue circula pelo corpo.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=lrzCIUTBgds" target="_blank" rel="noopener">Abrir no YouTube</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <iframe title="Por que atividade física faz bem? - Drauzio Varella" src="https://www.youtube.com/embed/I5AGYOjfZiE" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Por que se exercitar? (Drauzio)</h4>
+            <p>Benefícios simples e diretos da atividade física.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=I5AGYOjfZiE" target="_blank" rel="noopener">Abrir no YouTube</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <iframe title="150 minutos por semana - Animação" src="https://www.youtube.com/embed/alZZ2PQ0SL8" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>150 min/semana</h4>
+            <p>Objetivo prático para reduzir riscos de doenças.</p>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=alZZ2PQ0SL8" target="_blank" rel="noopener">Abrir no YouTube</a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Vídeo da Prof.ª Clarissa sobre fisiologia do coração">
+          <div class="thumb">
+            <iframe title="Prof.ª Clarissa - Fisiologia do coração" src="https://www.youtube.com/embed/bAyIGuffWuU" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Fisiologia do Coração</h4>
+            <p>Funcionamento do coração e importância da fisiologia para exercícios.</p>
+            <div class="actions-row">
+              <a class="btn btn-ghost" href="https://youtu.be/bAyIGuffWuU?si=0_FYCBlO2SzauUBv" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-youtube"></i> Abrir no YouTube
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Vídeo da Prof.ª Clarissa sobre fisioterapia e exercício físico">
+          <div class="thumb">
+            <iframe title="Prof.ª Clarissa - Fisioterapia e exercício físico" src="https://www.youtube.com/embed/kY2DeYHNVb8" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="card-body">
+            <h4>Fisioterapia e Exercício Físico</h4>
+            <p>Papel da fisioterapia na reabilitação e prevenção.</p>
+            <div class="actions-row">
+              <a class="btn btn-ghost" href="https://youtu.be/kY2DeYHNVb8?si=KKUdr_WNNU70TBIx" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-youtube"></i> Abrir no YouTube
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Imagem explicativa -->
+    <section id="imagem" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="imagem">🔊 Ouvir descrição da imagem</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-image"></i> Imagem explicativa do coração</h3>
+      <p>Observe a imagem que mostra o coração, os pulmões e os vasos sanguíneos principais. Ela ajuda a visualizar:</p>
+      <ul class="list">
+        <li>A entrada do sangue com pouco oxigênio no lado direito do coração.</li>
+        <li>A ida deste sangue aos pulmões para receber oxigênio.</li>
+        <li>O retorno do sangue rico em oxigênio ao lado esquerdo do coração.</li>
+        <li>A distribuição do sangue para todo o corpo pelas artérias.</li>
+      </ul>
+      <p>Essa visão geral facilita entender por que o <strong>movimento diário</strong> e a <strong>reabilitação cardíaca</strong> são tão importantes para a saúde.</p>
+
+      <figure class="card" style="max-width:600px;margin-top:12px;">
+        <img src="img/coracao-esquematico.jpg" alt="Desenho esquemático do coração ligado aos pulmões e aos vasos sanguíneos principais.">
+      </figure>
+    </section>
+
+    <!-- Referências -->
+    <section id="referencias" class="section container" data-animate>
+      <div class="audio-toolbar">
+        <button class="audio-btn" type="button" data-section="referencias">🔊 Ouvir este tópico</button>
+      </div>
+
+      <h3 class="section-title"><i class="fa-solid fa-book"></i> Referências bibliográficas</h3>
+
+      <ol class="refs">
+        <li>Ambrosetti M, et al. <em>European Journal of Preventive Cardiology</em>. 2021. DOI:
+          <a class="doi" href="https://doi.org/10.1177/2047487320913379" target="_blank" rel="noopener">10.1177/2047487320913379</a></li>
+        <li>Appel LJ. <em>J Am Soc Nephrol</em>. 2003. DOI:
+          <a class="doi" href="https://doi.org/10.1097/01.asn.0000070141.69483.5a" target="_blank" rel="noopener">10.1097/01.asn.0000070141.69483.5a</a></li>
+        <li>Damluji AA, et al. <em>J Geriatr Cardiol</em>. 2015. DOI:
+          <a class="doi" href="https://doi.org/10.11909/j.issn.1671-5411.2015.05.019" target="_blank" rel="noopener">10.11909/j.issn.1671-5411.2015.05.019</a></li>
+        <li>Dibben G, et al. <em>Cochrane Database Syst Rev</em>. 2021. DOI:
+          <a class="doi" href="https://doi.org/10.1002/14651858.CD001800.pub4" target="_blank" rel="noopener">10.1002/14651858.CD001800.pub4</a></li>
+        <li>Edwards JJ, et al. <em>Br J Sports Med</em>. 2023. DOI:
+          <a class="doi" href="https://doi.org/10.1136/bjsports-2022-106503" target="_blank" rel="noopener">10.1136/bjsports-2022-106503</a></li>
+        <li>Hu H, et al. <em>Int J Gen Med</em>. 2025. DOI:
+          <a class="doi" href="https://doi.org/10.2147/IJGM.S516371" target="_blank" rel="noopener">10.2147/IJGM.S516371</a></li>
+        <li>Hummel SL, et al. <em>Circulation: Heart Failure</em>. 2013. DOI:
+          <a class="doi" href="https://doi.org/10.1161/CIRCHEARTFAILURE.113.000481" target="_blank" rel="noopener">10.1161/CIRCHEARTFAILURE.113.000481</a></li>
+        <li>Izquierdo M, et al. <em>J Nutr Health Aging</em>. 2021. DOI:
+          <a class="doi" href="https://doi.org/10.1007/s12603-021-1665-8" target="_blank" rel="noopener">10.1007/s12603-021-1665-8</a></li>
+        <li>Fukuta H, et al. <em>Heart Fail Rev</em>. 2019. DOI:
+          <a class="doi" href="https://doi.org/10.1007/s10741-019-09774-5" target="_blank" rel="noopener">10.1007/s10741-019-09774-5</a></li>
+        <li>Men J, et al. <em>Front Endocrinol</em>. 2025. DOI:
+          <a class="doi" href="https://doi.org/10.3389/fendo.2025.1543775" target="_blank" rel="noopener">10.3389/fendo.2025.1543775</a></li>
+        <li>Oliveira J, et al. <em>J Geriatr Phys Ther</em>. 2016. DOI:
+          <a class="doi" href="https://doi.org/10.1519/JPT.0000000000000049" target="_blank" rel="noopener">10.1519/JPT.0000000000000049</a></li>
+        <li>Pogosova N, et al. <em>Eur J Prev Cardiol</em>. 2015. DOI:
+          <a class="doi" href="https://doi.org/10.1177/2047487314543075" target="_blank" rel="noopener">10.1177/2047487314543075</a></li>
+        <li>Pratesi A, et al. <em>Eur J Prev Cardiol</em>. 2019. DOI:
+          <a class="doi" href="https://doi.org/10.1177/2047487319854141" target="_blank" rel="noopener">10.1177/2047487319854141</a></li>
+        <li>Prommaban A, et al. <em>J Clin Med</em>. 2024. DOI:
+          <a class="doi" href="https://doi.org/10.3390/jcm13216570" target="_blank" rel="noopener">10.3390/jcm13216570</a></li>
+        <li>Rukskulpiwat S, et al. <em>Patient Prefer Adherence</em>. 2024. DOI:
+          <a class="doi" href="https://doi.org/10.2147/PPA.S459678" target="_blank" rel="noopener">10.2147/PPA.S459678</a></li>
+        <li>Santaularia N, et al. <em>Eur J Cardiovasc Nurs</em>. 2017. DOI:
+          <a class="doi" href="https://doi.org/10.1177/1474515116648801" target="_blank" rel="noopener">10.1177/1474515116648801</a></li>
+        <li>Schmidt-Trucksäss A, et al. <em>Atherosclerosis</em>. 2024. DOI:
+          <a class="doi" href="https://doi.org/10.1016/j.atherosclerosis.2024.117577" target="_blank" rel="noopener">10.1016/j.atherosclerosis.2024.117577</a></li>
+        <li>Tarazona-Santabalbina FJ, et al. <em>J Am Med Dir Assoc</em>. 2016. DOI:
+          <a class="doi" href="https://doi.org/10.1016/j.jamda.2016.01.019" target="_blank" rel="noopener">10.1016/j.jamda.2016.01.019</a></li>
+        <li>Valenzuela PL, et al. <em>The Lancet Healthy Longevity</em>. 2023. DOI:
+          <a class="doi" href="https://doi.org/10.1016/S2666-7568(23)00057-0" target="_blank" rel="noopener">10.1016/S2666-7568(23)00057-0</a></li>
+        <li>Yoshida H, et al. <em>Hypertens Res</em>. 2025. DOI:
+          <a class="doi" href="https://doi.org/10.1038/s41440-024-02066-y" target="_blank" rel="noopener">10.1038/s41440-024-02066-y</a></li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Voltar ao topo -->
+  <button id="toTop" class="to-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Botão modo leitura fácil (mantido) -->
+  <button id="easyReadBtn" aria-label="Ativar modo leitura fácil">
+    👁️ Leitura Fácil
+  </button>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anoAtual"></span> Vida Saudável 60+. Conteúdo educativo.</p>
+    </div>
+  </footer>
+
+  <!-- JS da página (ATUALIZADO) -->
+  <script>
+    // Data de hoje em português
+    (function setDataHoje(){
+      const el = document.getElementById('dataHoje');
+      if(!el) return;
+      const agora = new Date();
+      const dias = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+      const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+      const texto = `${dias[agora.getDay()]}, ${agora.getDate()} de ${meses[agora.getMonth()]} de ${agora.getFullYear()}`;
+      el.textContent = texto;
+    })();
+
+    // Ano atual no rodapé
+    document.getElementById('anoAtual').textContent = new Date().getFullYear();
+
+    // Menu responsivo
+    const menuBtn = document.getElementById('menuBtn');
+    const topNav = document.getElementById('topNav');
+    if (menuBtn && topNav) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = topNav.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    // Barra de progresso + botão voltar ao topo
+    const bar = document.getElementById('progressBar');
+    const toTop = document.getElementById('toTop');
+
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const s = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      if (bar) bar.style.width = s + '%';
+      if (toTop) toTop.classList.toggle('show', h.scrollTop > 300);
+    }, { passive: true });
+
+    if (toTop) {
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior:'smooth' });
+      });
+    }
+
+    // Animação de entrada
+    const ob = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.2});
+    document.querySelectorAll('[data-animate]').forEach(el => ob.observe(el));
+
+    // Modo leitura fácil
+    const easyBtn = document.getElementById('easyReadBtn');
+    if (easyBtn) {
+      easyBtn.addEventListener('click', () => {
+        document.body.classList.toggle('easy-read');
+      });
+    }
+
+    // ===== AUMENTAR/DIMINUIR LETRA (A- / A+ / Padrão) =====
+    (function fontControls(){
+      const MIN_PX = 16, MAX_PX = 26, STEP = 1, DEFAULT_PX = 18;
+      const hint = document.getElementById('fontHint');
+
+      function getFontPx(){
+        const saved = Number(localStorage.getItem("vs60_font_px"));
+        if (saved && saved >= MIN_PX && saved <= MAX_PX) return saved;
+        const css = Number(getComputedStyle(document.documentElement).fontSize.replace("px",""));
+        return css || DEFAULT_PX;
+      }
+      function setFontPx(px){
+        const v = Math.max(MIN_PX, Math.min(MAX_PX, px));
+        document.documentElement.style.fontSize = v + "px";
+        localStorage.setItem("vs60_font_px", String(v));
+        if (hint) hint.textContent = `Tamanho: ${v}px`;
+      }
+
+      setFontPx(getFontPx());
+      document.getElementById("fontDec")?.addEventListener("click", () => setFontPx(getFontPx() - STEP));
+      document.getElementById("fontInc")?.addEventListener("click", () => setFontPx(getFontPx() + STEP));
+      document.getElementById("fontReset")?.addEventListener("click", () => setFontPx(DEFAULT_PX));
+    })();
+
+    // ===== ÁUDIO DESCRIÇÃO (por tópico e página inteira) =====
+    const hasTTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+
+    function setTtsStatus(msg){
+      const el = document.getElementById("ttsStatus");
+      if (el) el.textContent = msg;
+    }
+
+    function pickPtVoice(){
+      const voices = speechSynthesis.getVoices?.() || [];
+      return voices.find(v => /pt-BR/i.test(v.lang)) || voices.find(v => /^pt/i.test(v.lang)) || null;
+    }
+
+    function stopSpeak(){
+      if (!hasTTS) return;
+      speechSynthesis.cancel();
+      setTtsStatus("Leitura parada.");
+    }
+
+    function pauseOrResume(){
+      if (!hasTTS) return;
+      if (speechSynthesis.speaking && !speechSynthesis.paused){
+        speechSynthesis.pause();
+        setTtsStatus("Leitura pausada.");
+        return;
+      }
+      if (speechSynthesis.paused){
+        speechSynthesis.resume();
+        setTtsStatus("Leitura retomada.");
+      }
+    }
+
+    function speakText(text){
+      if (!hasTTS){
+        alert("Seu navegador não suporta leitura em voz. Use o Google Chrome 😉");
+        return;
+      }
+      const clean = (text || "").replace(/\s+/g, " ").trim();
+      if (!clean) return;
+
+      stopSpeak();
+
+      const u = new SpeechSynthesisUtterance(clean);
+      const voice = pickPtVoice();
+      if (voice) u.voice = voice;
+      u.lang = voice?.lang || "pt-BR";
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      u.volume = 1.0;
+
+      u.onstart = () => setTtsStatus("Lendo em voz alta...");
+      u.onend   = () => setTtsStatus("Leitura concluída.");
+      u.onerror = () => setTtsStatus("Não foi possível ler este trecho.");
+
+      speechSynthesis.speak(u);
+    }
+
+    // Remove coisas que não devem ser lidas (menu, botões, links, vídeos etc.)
+    function extractCleanText(root){
+      if (!root) return "";
+
+      const clone = root.cloneNode(true);
+
+      const removeSelectors = [
+        "header","footer","nav",
+        ".audio-toolbar","button",
+        "a","iframe","script","style",
+        ".thumb",".actions-row",
+        "#progressBar","#toTop","#easyReadBtn",
+        "i"
+      ];
+
+      clone.querySelectorAll(removeSelectors.join(",")).forEach(el => el.remove());
+
+      return (clone.textContent || "")
+        .replace(/[ \t]+\n/g, "\n")
+        .replace(/\n{3,}/g, "\n\n")
+        .replace(/[ \t]{2,}/g, " ")
+        .trim();
+    }
+
+    // Botões por tópico (os seus)
+    document.querySelectorAll(".audio-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+
+        if (target === "page-all") {
+          const main = document.querySelector("main");
+          const text = extractCleanText(main);
+          if (text) speakText(text);
+          return;
+        }
+
+        const section = document.getElementById(target);
+        const text = extractCleanText(section);
+        if (text) speakText(text);
+      });
+    });
+
+    // Botões globais (barra fixa)
+    document.getElementById("ttsPlayPage")?.addEventListener("click", () => {
+      const main = document.querySelector("main");
+      const text = extractCleanText(main);
+      if (text) speakText(text);
+    });
+    document.getElementById("ttsPause")?.addEventListener("click", pauseOrResume);
+    document.getElementById("ttsStop")?.addEventListener("click", stopSpeak);
+
+    // Alguns navegadores precisam desse “gatilho” para carregar vozes
+    if (hasTTS && speechSynthesis.onvoiceschanged !== undefined){
+      speechSynthesis.onvoiceschanged = () => {};
+    }
+
+    // Cancela ao sair
+    window.addEventListener("beforeunload", stopSpeak);
+  </script>
+</body>
+</html>
